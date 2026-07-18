@@ -30,7 +30,7 @@ A single static HTML page — no build step, no framework, no dependencies beyon
 The page is built on the **Fernwell** token set (shared with the HunnyDo product UI), so the marketing site and the app stay visually consistent.
 
 | Token | Value | Use |
-|---|---|---|
+| --- | --- | --- |
 | `--marigold` | `#FFC145` | Primary brand / CTA — stays the same hex in light and dark mode |
 | `--plum` | `#4C3A73` | Secondary brand, nav, headers |
 | `--ink` / `--cloud` | `#1F2430` / `#F5F6F1` | Text and background neutrals |
