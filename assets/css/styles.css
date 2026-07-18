@@ -1,0 +1,110 @@
+:root {
+  --ink: #1F2430;
+  --ink-soft: #565D6E;
+  --cloud: #F5F6F1;
+  --cloud-dim: #EAEBE4;
+  --white: #FFFFFF;
+  --marigold: #FFC145;
+  --marigold-dk: #E8A521;
+  --plum: #4C3A73;
+  --plum-dk: #392C58;
+  --meadow: #3FA672;
+  --meadow-bg: #E6F5EC;
+  --coral: #E85B4F;
+  --coral-bg: #FCEAE8;
+  --sky: #3E8FD0;
+  --sky-bg: #E8F2FA;
+
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-full: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(31, 36, 48, 0.06), 0 1px 1px rgba(31, 36, 48, 0.04);
+  --shadow-md: 0 4px 12px rgba(31, 36, 48, 0.08), 0 2px 4px rgba(31, 36, 48, 0.04);
+  --shadow-lg: 0 12px 32px rgba(31, 36, 48, 0.12), 0 4px 8px rgba(31, 36, 48, 0.06);
+  --shadow-marigold: 0 6px 16px rgba(255, 193, 69, 0.35);
+  --ink-fixed: #1F2430;
+}
+
+[data-theme="dark"] {
+  --ink: #F2F1EA;
+  --ink-soft: #9CA1B0;
+  --cloud: #14161C;
+  --cloud-dim: #2B2F3B;
+  --white: #1D2029;
+  --marigold-dk: #FFD166;
+  --plum: #6B54A3;
+  --plum-dk: #7E68B5;
+  --meadow: #55D194;
+  --meadow-bg: rgba(85, 209, 148, 0.14);
+  --coral: #FF8478;
+  --coral-bg: rgba(255, 132, 120, 0.14);
+  --sky: #6BB3E8;
+  --sky-bg: rgba(107, 179, 232, 0.14);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-marigold: 0 6px 16px rgba(255, 193, 69, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cloud);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background .2s ease, color .2s ease;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  color: var(--ink);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+}
+
+section {
+  padding: var(--sp-9) 0;
+}
