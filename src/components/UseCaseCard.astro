@@ -1,0 +1,18 @@
+---
+interface Props {
+  variant: 'pro' | 'personal';
+  title: string;
+  description: string;
+  tags: string[];
+}
+
+const { variant, title, description, tags } = Astro.props;
+---
+
+<div class={`usecase-card ${variant}`}>
+  <h3>{title}</h3>
+  <p class="desc">{description}</p>
+  <div class="usecase-tags">
+    {tags.map((tag) => <span class="tag">{tag}</span>)}
+  </div>
+</div>

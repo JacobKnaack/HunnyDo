@@ -1,0 +1,37 @@
+---
+import Button from './Button.astro';
+
+interface Props {
+  plan: string;
+  amount: string;
+  period: string;
+  description: string;
+  features: string[];
+  ctaHref: string;
+  ctaLabel: string;
+  ctaVariant?: 'primary' | 'ghost';
+  featured?: boolean;
+}
+
+const {
+  plan,
+  amount,
+  period,
+  description,
+  features,
+  ctaHref,
+  ctaLabel,
+  ctaVariant = 'ghost',
+  featured = false,
+} = Astro.props;
+---
+
+<div class={`price-card ${featured ? 'featured' : ''}`}>
+  <div class="plan">{plan}</div>
+  <div class="amount">{amount}<span class="per">{period}</span></div>
+  <p class="desc">{description}</p>
+  <ul>
+    {features.map((feature) => <li>{feature}</li>)}
+  </ul>
+  <Button href={ctaHref} variant={ctaVariant}>{ctaLabel}</Button>
+</div>

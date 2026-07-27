@@ -1,0 +1,63 @@
+---
+type Status = 'done' | 'waiting' | 'overdue';
+
+interface ChecklistRow {
+  title: string;
+  assignee: string;
+  status: Status;
+}
+
+interface Props {
+  heading: string;
+  subheading: string;
+  progressPercent: number;
+  rows: ChecklistRow[];
+}
+
+const { heading, subheading, progressPercent, rows } = Astro.props;
+
+const pillLabel: Record<Status, string> = {
+  done: 'Done',
+  waiting: 'Waiting',
+  overdue: 'Overdue',
+};
+---
+
+<div class="product-frame">
+  <div class="mini-nav">
+    <div class="nav-brand"><span class="hex"></span>HunnyDo</div>
+    <div class="mini-links">
+      <span class="active">Checklists</span>
+      <span>People</span>
+    </div>
+    <div class="mini-avatar">JM</div>
+  </div>
+
+  <div class="checklist-head">
+    <div>
+      <h4>{heading}</h4>
+      <div class="sub">{subheading}</div>
+    </div>
+    <div class="progress-mini">
+      <div class="pct">{progressPercent}%</div>
+      <div class="progress-track"><div class="progress-fill" style={`width:${progressPercent}%`}></div></div>
+    </div>
+  </div>
+
+  <div class="checklist-rows">
+    {rows.map((row) => (
+      <div class="cl-row">
+        <div class={`cl-check ${row.status === 'done' ? 'done' : ''}`}>
+          {row.status === 'done' && (
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#1F2430" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          )}
+        </div>
+        <div class="cl-text">
+          <div class={`title ${row.status === 'done' ? 'struck' : ''}`}>{row.title}</div>
+          <div class="assignee">{row.assignee}</div>
+        </div>
+        <span class={`pill pill-${row.status}`}>{pillLabel[row.status]}</span>
+      </div>
+    ))}
+  </div>
+</div>

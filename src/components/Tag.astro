@@ -1,0 +1,12 @@
+---
+interface Props {
+  variant?: 'marigold';
+  class?: string;
+}
+
+const { variant, class: className } = Astro.props;
+---
+
+<span class={['tag', variant && `tag-${variant}`, className].filter(Boolean).join(' ')}>
+  <slot />
+</span>

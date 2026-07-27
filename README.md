@@ -1,21 +1,39 @@
 # HunnyDo — Marketing Site
 
-The public marketing landing page for **HunnyDo**, a digital checklist tool that lets you assign tasks to other people — clients, coworkers, roommates, that one boyfriend — and automatically follows up until every item is checked off.
+The public marketing site for **HunnyDo**, a digital checklist tool that lets you assign tasks to other people — clients, coworkers, roommates, that one boyfriend — and automatically follows up until every item is checked off.
 
 **Live site:** [hunnydo.cloud](https://hunnydo.cloud)
 **App / sign up:** [app.hunnydo.cloud](https://app.hunnydo.cloud/signup)
 
 ## What's in this repo
 
-A single static HTML page — no build step, no framework, no dependencies beyond Google Fonts. It's meant to be easy to deploy anywhere that serves static files.
+An [Astro](https://astro.build) site — four pages (landing page, 404, brand kit, and the Fernwell design-language reference) built from a shared set of components instead of hand-copied HTML.
 
-```table
+```
 .
-├── index.html      # the entire landing page (markup + CSS + JS inline)
-└── README.md
+├── src/
+│   ├── layouts/
+│   │   └── BaseLayout.astro     # <head> boilerplate, fonts, SEO/OG/JSON-LD
+│   ├── components/               # shared, reusable pieces (Nav, Footer, Button, Tag,
+│   │                              # SectionHeading, Hero, FeatureCard, PriceCard, ...)
+│   ├── styles/
+│   │   ├── tokens.css            # design tokens (:root + [data-theme="dark"])
+│   │   ├── components.css        # buttons, tags, nav, hero — site-wide
+│   │   ├── modules.css           # marketing-page sections (cards, pricing, checklist preview)
+│   │   ├── global.css            # imports the three above; pulled in by BaseLayout
+│   │   ├── brand-kit.css         # page-specific styles for /brand-kit.html
+│   │   └── fernwell.css          # page-specific styles for /fernwell.html
+│   └── pages/
+│       ├── index.astro           # landing page
+│       ├── 404.astro
+│       ├── brand-kit.astro
+│       └── fernwell.astro
+├── public/                       # static passthrough: CNAME, robots.txt, sitemap.xml, favicon
+├── astro.config.mjs
+└── .github/workflows/deploy.yml  # builds + deploys to GitHub Pages on push to main
 ```
 
-## Page structure
+## Page structure (index.astro)
 
 - **Hero** — headline, primary CTA, and top-line stats (completion rate, checklists sent, avg. reminders to close a task)
 - **Who it's for** — two audiences side by side: professionals (agencies, mortgage brokers, law firms, realtors) and everyday use (trip planning, roommates, honey-do lists)
@@ -27,7 +45,7 @@ A single static HTML page — no build step, no framework, no dependencies beyon
 
 ## Fernwell Design system
 
-The page is built on the **Fernwell** token set (shared with the HunnyDo product UI), so the marketing site and the app stay visually consistent.
+The site is built on the **Fernwell** token set (shared with the HunnyDo product UI), so the marketing site and the app stay visually consistent. `/fernwell.html` is the living reference for the full component language; `/brand-kit.html` covers the logo/identity system.
 
 | Token | Value | Use |
 | --- | --- | --- |
@@ -40,26 +58,31 @@ The page is built on the **Fernwell** token set (shared with the HunnyDo product
 - **Shape:** a single rounding scale from `10px` (inputs) up to `999px` (pills/avatars) — the bigger the surface, the softer the corner
 - **Dark mode:** toggled client-side via `[data-theme="dark"]` on `<body>`; all tokens are re-declared as CSS custom properties rather than inverted, so status colors brighten instead of just flipping
 
-All tokens live as CSS custom properties at the top of `index.html` — copy them directly if you need to build another page in the same system.
+All tokens live in `src/styles/tokens.css` — every page pulls from the same file, so there's one source of truth instead of copy-pasted `:root` blocks.
 
 ## Running locally
 
-No build tooling required. Either open the file directly, or serve it so relative paths and fonts behave normally:
+```bash
+npm install
+npm run dev
+# then visit http://localhost:4321
+```
 
 ```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
+npm run build    # outputs to dist/
+npm run preview  # serve the production build locally
 ```
 
 ## Editing
 
-- Copy (headlines, feature text, pricing) lives directly in the HTML — search for the relevant `<section>` by its `id` (`#usecases`, `#features`, `#product`, `#pricing`).
-- The product-preview checklist is hand-authored markup, not a live embed — update the rows in `.checklist-rows` to change what's shown.
-- Pricing CTAs point to `https://app.hunnydo.cloud/signup`; update those links if the sign-up flow moves.
+- Section copy for the landing page is passed as props/slots from `src/pages/index.astro` into components in `src/components/` — edit the values there rather than the component markup.
+- The product-preview checklist (`ProductPreview.astro`) takes a `rows` prop; edit the array in `index.astro` to change what's shown.
+- `brand-kit.astro` and `fernwell.astro` are mostly one-off reference content (swatches, component demos) — edit them directly; only the repeated pieces (section headers, swatches, icon tiles) are pulled out as components.
+- Pricing CTAs point to `https://app.hunnydo.cloud`; update those links if the sign-up flow moves.
 
 ## Deployment
 
-Static file, so any static host works (Cloudflare Pages, Netlify, Vercel, S3 + CDN, etc.). Currently deployed at [hunnydo.cloud](https://hunnydo.cloud).
+Deployed to **GitHub Pages** via `.github/workflows/deploy.yml`, which builds with Astro and publishes on every push to `main`. The custom domain (`hunnydo.cloud`) is preserved via `public/CNAME`, which Astro copies into `dist/` on build.
 
 ## License
 

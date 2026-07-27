@@ -1,0 +1,10 @@
+<button class="theme-btn" id="theme-toggle" aria-label="Toggle dark theme">🌙</button>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  btn?.addEventListener('click', () => {
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    btn.textContent = isDark ? '🌙' : '☀️';
+  });
+</script>

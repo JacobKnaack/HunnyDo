@@ -1,0 +1,15 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+}
+
+const { eyebrow, title, description } = Astro.props;
+---
+
+<div class="sec-head">
+  {eyebrow && <span class="tag tag-marigold">{eyebrow}</span>}
+  <h2 style={eyebrow ? 'margin-top:var(--sp-4)' : undefined}>{title}</h2>
+  {description && <p>{description}</p>}
+</div>

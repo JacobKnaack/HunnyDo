@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import Button from '../components/Button.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Page not found — HunnyDo" description="The page you're looking for doesn't exist or has moved." noindex>
+  <SiteHeader />
+
+  <main>
+    <div class="panel">
+      <span class="tag">ERROR · 404</span>
+
+      <div class="blob" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <circle cx="21" cy="21" r="14" stroke="currentColor" stroke-width="2.4" stroke-dasharray="4 5.5" />
+          <path d="M17.3 17.8c0-2.5 1.9-4.3 4.2-4.3 2.3 0 4.2 1.7 4.2 3.8 0 2.5-4.2 2.8-4.2 6.1" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="21.5" cy="27.6" r="1.4" fill="currentColor" />
+          <path d="M31 31L40 40" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <h1>Page not found</h1>
+      <p class="lede">The link's broken, or this page has moved. Let's get you back on track.</p>
+
+      <div class="actions">
+        <Button href="/" variant="primary">Go to homepage</Button>
+        <Button href="mailto:jacobknck@gmail.com" variant="ghost">Contact support</Button>
+      </div>
+
+      <div class="suggest">
+        <p>Or try one of these</p>
+        <div class="links">
+          <a href="/#features">Features</a>
+          <a href="/#pricing">Pricing</a>
+          <a href="/brand-kit.html">Branding</a>
+          <a href="/fernwell.html">Design</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  :global(html),
+  :global(body) {
+    height: 100%;
+  }
+  :global(body) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sp-6) var(--sp-5) var(--sp-8);
+  }
+
+  .panel {
+    max-width: 440px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: var(--r-md);
+    transform: rotate(-2deg);
+    background: var(--sky-bg);
+    color: var(--sky);
+    margin-bottom: var(--sp-5);
+    letter-spacing: 0.04em;
+  }
+
+  .blob {
+    width: 112px;
+    height: 112px;
+    margin-bottom: var(--sp-5);
+    border-radius: 38% 62% 60% 40% / 48% 42% 58% 52%;
+    background: linear-gradient(135deg, var(--marigold), #FFD988);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-marigold);
+  }
+  .blob svg {
+    width: 48px;
+    height: 48px;
+    color: var(--ink-fixed);
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .lede {
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-top: var(--sp-3);
+    max-width: 38ch;
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: var(--sp-6);
+  }
+  .actions :global(.btn) {
+    padding: 12px 22px;
+    font-size: 15px;
+  }
+
+  .suggest {
+    margin-top: var(--sp-7);
+    padding-top: var(--sp-6);
+    border-top: 1.5px solid var(--cloud-dim);
+    width: 100%;
+    max-width: 360px;
+  }
+  .suggest p {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    margin-bottom: var(--sp-3);
+  }
+  .suggest .links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .suggest a {
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--plum);
+    padding: 8px 10px;
+    border-radius: var(--r-sm);
+    transition: background .12s ease;
+  }
+  .suggest a:hover {
+    background: var(--white);
+  }
+
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 26px;
+    }
+  }
+</style>

@@ -1,0 +1,30 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import Button from './Button.astro';
+
+interface NavLink {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  links: NavLink[];
+  ctaHref: string;
+  ctaLabel: string;
+}
+
+const { links, ctaHref, ctaLabel } = Astro.props;
+---
+
+<div class="wrap">
+  <div class="nav-mock">
+    <div class="nav-brand"><span class="hex"></span>HunnyDo</div>
+    <div class="nav-links">
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </div>
+    <div class="nav-right">
+      <ThemeToggle />
+      <Button href={ctaHref} variant="primary" style="padding:9px 18px; font-size:13.5px;">{ctaLabel}</Button>
+    </div>
+  </div>
+</div>

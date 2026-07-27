@@ -1,0 +1,52 @@
+---
+import Button from './Button.astro';
+import StatStrip from './StatStrip.astro';
+
+interface Stat {
+  value: string;
+  unit: string;
+  label: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  emphasis: string;
+  lede: string;
+  primaryCtaHref: string;
+  primaryCtaLabel: string;
+  secondaryCtaHref: string;
+  secondaryCtaLabel: string;
+  finePrint: string;
+  stats: Stat[];
+}
+
+const {
+  eyebrow,
+  title,
+  emphasis,
+  lede,
+  primaryCtaHref,
+  primaryCtaLabel,
+  secondaryCtaHref,
+  secondaryCtaLabel,
+  finePrint,
+  stats,
+} = Astro.props;
+---
+
+<div class="hero">
+  <div class="honeycomb-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow">{eyebrow}</div>
+    <h1>{title} <em>{emphasis}</em></h1>
+    <p class="lede">{lede}</p>
+    <div class="cta-row">
+      <Button href={primaryCtaHref} variant="primary">{primaryCtaLabel}</Button>
+      <Button href={secondaryCtaHref} variant="ghost">{secondaryCtaLabel}</Button>
+    </div>
+    <p class="fine">{finePrint}</p>
+
+    <StatStrip stats={stats} />
+  </div>
+</div>

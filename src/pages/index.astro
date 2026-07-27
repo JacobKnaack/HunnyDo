@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import UseCaseCard from '../components/UseCaseCard.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import ProductPreview from '../components/ProductPreview.astro';
+import Testimonial from '../components/Testimonial.astro';
+import PriceCard from '../components/PriceCard.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import Footer from '../components/Footer.astro';
+
+const navLinks = [
+  { href: '#usecases', label: "Who it's for" },
+  { href: '#features', label: 'Features' },
+  { href: '#product', label: 'How it works' },
+  { href: '#pricing', label: 'Pricing' },
+];
+---
+
+<BaseLayout
+  title="HunnyDo — Checklists that follow up for you"
+  description="HunnyDo turns your to-do list into a checklist that follows up on its own. Assign items, set due dates, and let automatic reminders chase people down — for closing files, client onboarding, or the honey-do list at home."
+  structuredData
+>
+  <Nav links={navLinks} ctaHref="#pricing" ctaLabel="Start free" />
+
+  <Hero
+    eyebrow="Checklists that chase people down"
+    title="Get it done,"
+    emphasis="hunny."
+    lede="Build a checklist of exactly what you need from someone else — documents, decisions, deposits — send it, and let HunnyDo do the nagging until every box is checked."
+    primaryCtaHref="#pricing"
+    primaryCtaLabel="Start free"
+    secondaryCtaHref="#product"
+    secondaryCtaLabel="See how it works"
+    finePrint="No credit card required · free for individuals"
+    stats={[
+      { value: '94', unit: '%', label: 'Checklists completed without a phone call' },
+      { value: '3.2K', unit: '+', label: 'Checklists sent this month' },
+      { value: '2.4', unit: 'avg', label: 'Reminders it takes to finish a task' },
+    ]}
+  />
+
+  <section id="usecases">
+    <div class="wrap">
+      <SectionHeading
+        eyebrow="Built for two very different Tuesdays"
+        title="Whoever you need to nag, HunnyDo's on it"
+        description="The same checklist, reminders, and progress tracking work whether you're closing a file or just trying to get the group chat to book flights."
+      />
+      <div class="usecase-grid">
+        <UseCaseCard
+          variant="pro"
+          title="For the professionals"
+          description="Agencies, mortgage brokers, law firms, and realtors use HunnyDo to collect what they need from clients — without becoming a full-time follow-up service."
+          tags={['Client onboarding', 'Loan documents', 'Closing checklists', 'Signature requests']}
+        />
+        <UseCaseCard
+          variant="personal"
+          title="For everyday life"
+          description={'Trip-planning group chats, roommates splitting chores, and yes — the honey-do list for the boyfriend who\'s been "getting to it" for three weeks.'}
+          tags={['Trip planning', 'Honey-do list', 'Splitting the bill', 'One-off favors']}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <SectionHeading
+        eyebrow="Why people switch"
+        title="Everything the boring part of following up needs"
+        description="HunnyDo handles the parts of getting things done that nobody enjoys asking twice for."
+      />
+      <div class="feature-grid">
+        <FeatureCard
+          icon="📋"
+          title="Build a checklist in minutes"
+          description="List out exactly what you need — documents, signatures, decisions — assign each item to a person, and set a due date."
+        />
+        <FeatureCard
+          icon="🔔"
+          title="Reminders that actually work"
+          description={'HunnyDo follows up automatically until each item is checked off, so you don\'t have to send "hey, did you..." a fifth time.'}
+        />
+        <FeatureCard
+          icon="👀"
+          title="See who's holding things up"
+          description="One dashboard shows what's done, what's pending, and exactly who's dragging their feet — no chasing down the answer yourself."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section id="product">
+    <div class="wrap">
+      <SectionHeading
+        title="A checklist that follows up so you don't have to"
+        description="Share it once. HunnyDo tracks every item and nags the right person automatically."
+      />
+      <ProductPreview
+        heading="Closing Checklist — 214 Birch Ln"
+        subheading="Shared with Alex R. and Sam K. · 3 of 5 complete"
+        progressPercent={60}
+        rows={[
+          { title: 'Submit signed disclosure', assignee: 'Alex R.', status: 'done' },
+          { title: "Confirm homeowner's insurance", assignee: 'Sam K.', status: 'done' },
+          { title: 'Upload proof of funds', assignee: 'Alex R. · 3 reminders sent', status: 'waiting' },
+          { title: 'Confirm final walkthrough time', assignee: 'Sam K. · due yesterday', status: 'overdue' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <Testimonial
+        quote="HunnyDo chases my clients so I don't have to. My files close almost twice as fast."
+        citation="Some Guy. · Hopefully, with some company"
+      />
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <SectionHeading
+        eyebrow="Pricing"
+        title="Start free, grow when you're ready"
+        description="Every plan includes automatic reminders. No setup fees, cancel anytime."
+      />
+      <div class="price-grid">
+        <PriceCard
+          plan="Personal"
+          amount="$0"
+          period="/mo"
+          description="For the honey-do list and the group trip."
+          features={['Unlimited checklists', 'Automatic reminders', 'Unlimited team members']}
+          ctaHref="https://app.hunnydo.cloud"
+          ctaLabel="Start free"
+          ctaVariant="ghost"
+        />
+        <PriceCard
+          plan="Professional"
+          amount="$5"
+          period="/mo"
+          description="For agents, brokers, and consultants."
+          features={[
+            'Unlimited checklists',
+            'Automatic reminders',
+            'Unlimited team members',
+            'Reusable templates',
+            'Contact lists',
+            'Secure client links',
+            'Secure file sharing',
+          ]}
+          ctaHref="https://app.hunnydo.cloud"
+          ctaLabel="Subscribe"
+          ctaVariant="primary"
+          featured
+        />
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <FinalCTA
+        title="Ready to stop asking twice?"
+        description="Build your first checklist in the next five minutes — reminders included."
+        ctaHref="https://app.hunnydo.cloud"
+        ctaLabel="Start free"
+      />
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+interface Props {
+  variant: 'do' | 'dont';
+  description: string;
+}
+
+const { variant, description } = Astro.props;
+---
+
+<div class={`dd-card dd-${variant}`}>
+  <span class="dd-badge">{variant === 'do' ? 'Do' : "Don't"}</span>
+  <slot />
+  <p>{description}</p>
+</div>

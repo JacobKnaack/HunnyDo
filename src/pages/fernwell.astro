@@ -1,0 +1,451 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import KitSectionHeading from '../components/KitSectionHeading.astro';
+import Swatch from '../components/Swatch.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/fernwell.css';
+---
+
+<BaseLayout title="Fernwell — UI Design Language" description="The Fernwell design language behind HunnyDo's product UI — color, type, shape, components, motion, and voice.">
+<div class="kit-wrap">
+
+  <div class="intro">
+    <div class="eyebrow">Design Language · v1.0</div>
+    <h1>Fernwell UI System</h1>
+    <p class="lede">Warm, rounded, and legible — built to feel approachable to a first-time consumer trial and sturdy enough for the team running their business through it every day.</p>
+    <button class="btn btn-ghost" id="theme-toggle" style="margin-top:var(--sp-5)">🌙 Preview dark theme</button>
+  </div>
+
+  <!-- COLOR -->
+  <section>
+    <KitSectionHeading title="Color" num="01" />
+    <p class="sec-note">Marigold carries the energy — used sparingly, only for the action you most want taken. Plum grounds the interface and does the heavy lifting in navigation and headers. Ink and Cloud are doing 90% of the actual work on any given screen.</p>
+    <div class="swatch-grid">
+      <Swatch name="Ink" hex="#1F2430" chipStyle="background:var(--ink)" />
+      <Swatch name="Cloud" hex="#F5F6F1" chipStyle="background:var(--cloud); border-bottom:1.5px solid var(--cloud-dim)" />
+      <Swatch name="Marigold" hex="#FFC145" chipStyle="background:var(--marigold)" />
+      <Swatch name="Plum" hex="#4C3A73" chipStyle="background:var(--plum)" />
+      <Swatch name="Meadow" hex="#3FA672" chipStyle="background:var(--meadow)" />
+      <Swatch name="Coral" hex="#E85B4F" chipStyle="background:var(--coral)" />
+    </div>
+  </section>
+
+  <!-- DARK COLOR -->
+  <section>
+    <KitSectionHeading title="Color — dark theme" num="01b" />
+    <p class="sec-note">Not a straight inversion. Marigold stays exactly the same hex in both themes — it's the one constant that says "this is Fernwell" regardless of mode. Everything else shifts: neutrals move from warm-cream to near-black (never pure black, which flattens elevation), and the tinted backgrounds behind status colors switch from solid pastel fills to low-opacity washes, since a light pastel chip on a dark page reads as a UI bug, not a status. Toggle the button above to see it live.</p>
+    <div class="swatch-grid">
+      <Swatch name="Ink (bg)" hex="#14161C" chipStyle="background:#14161C" />
+      <Swatch name="Surface" hex="#1D2029" chipStyle="background:#1D2029; border-bottom:1.5px solid #2B2F3B" />
+      <Swatch name="Cloud (text)" hex="#F2F1EA" chipStyle="background:#F2F1EA" />
+      <Swatch name="Marigold" hex="#FFC145 · unchanged" chipStyle="background:#FFC145" />
+      <Swatch name="Plum" hex="#6B54A3" chipStyle="background:#6B54A3" />
+      <Swatch name="Meadow" hex="#55D194" chipStyle="background:#55D194" />
+      <Swatch name="Coral" hex="#FF8478" chipStyle="background:#FF8478" />
+      <Swatch name="Sky" hex="#6BB3E8" chipStyle="background:#6BB3E8" />
+    </div>
+    <dl class="kv" style="margin-top:var(--sp-5)">
+      <dt>Why not pure black</dt><dd>#14161C keeps a trace of Plum's undertone rather than going neutral gray or true black — it's what makes the dark theme still feel like the same brand and not a generic "dark mode" reskin.</dd>
+      <dt>Why Marigold is fixed</dt><dd>It's light in both themes, so instead of changing it, we fixed the text that sits on it: buttons and avatars using Marigold as a background always use Ink-Fixed (#1F2430) for text, never the theme's flipping text color.</dd>
+      <dt>Why status colors brighten</dt><dd>Meadow, Coral, and Sky are all lifted 1–2 steps lighter in dark mode. The same hex that meets contrast on Cloud (#F5F6F1) falls short against near-black — darker backgrounds need lighter foreground colors to hold the same readability.</dd>
+    </dl>
+  </section>
+
+  <!-- TYPE -->
+  <section>
+    <KitSectionHeading title="Typography" num="02" />
+    <p class="sec-note">Plus Jakarta Sans for anything that should feel like a voice — headlines, empty states, onboarding. Inter for anything the user reads quickly and often — tables, forms, nav. Plex Mono for numbers, IDs, and anywhere precision matters more than warmth.</p>
+    <div class="card">
+      <div class="type-row"><span class="tag">Display / 44</span><span class="type-display" style="font-size:40px">Get paid on time</span></div>
+      <div class="type-row"><span class="tag">Display / 28</span><span class="type-display" style="font-size:28px">Invoices sent this week</span></div>
+      <div class="type-row"><span class="tag">Body / 16</span><span class="type-body" style="font-size:16px">Set a due date, add your terms, and we'll remind clients before it's late.</span></div>
+      <div class="type-row"><span class="tag">Body / 14</span><span class="type-body" style="font-size:14px; color:var(--ink-soft)">Secondary text and helper copy sits here, always Ink-Soft, never pure gray.</span></div>
+      <div class="type-row"><span class="tag">Mono / 13</span><span class="type-mono" style="font-size:13px">INV-04821 · $1,240.00</span></div>
+    </div>
+  </section>
+
+  <!-- SHAPE -->
+  <section>
+    <KitSectionHeading title="Shape" num="03" />
+    <p class="sec-note">One rounding system, four scales. The bigger the surface, the softer the corner — this is the single rule that ties every component together.</p>
+    <div class="shape-row">
+      <div class="shape-demo"><div class="box" style="border-radius:var(--r-sm)"></div><span class="lbl">sm · 10px · inputs</span></div>
+      <div class="shape-demo"><div class="box" style="border-radius:var(--r-md)"></div><span class="lbl">md · 16px · buttons</span></div>
+      <div class="shape-demo"><div class="box" style="border-radius:var(--r-lg)"></div><span class="lbl">lg · 24px · cards</span></div>
+      <div class="shape-demo"><div class="box" style="border-radius:var(--r-xl)"></div><span class="lbl">xl · 32px · modals</span></div>
+      <div class="shape-demo"><div class="box" style="border-radius:var(--r-full); width:88px; height:88px"></div><span class="lbl">full · avatars, pills</span></div>
+    </div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section>
+    <KitSectionHeading title="Buttons" num="04" />
+    <p class="sec-note">Primary is Marigold and appears once per view. Secondary (Plum) is for the next-most-important action. Ghost for anything tertiary. Only one Primary button visible at a time — if two things feel equally important, neither is Primary.</p>
+    <div class="row">
+      <button class="btn btn-primary">Send invoice</button>
+      <button class="btn btn-secondary">Save as draft</button>
+      <button class="btn btn-ghost">Cancel</button>
+      <button class="btn btn-danger">Delete</button>
+      <button class="btn btn-primary" disabled>Send invoice</button>
+    </div>
+  </section>
+
+  <!-- PROGRESS & LOADING -->
+  <section>
+    <KitSectionHeading title="Progress &amp; loading" num="04b" />
+    <p class="sec-note">Determinate bars for anything with a known length (uploads, multi-step forms). Indeterminate bars for anything with an unknown duration. Spinners live inline — in a button, next to a label, or centered in a panel — never as a full-page takeover unless the whole screen is genuinely blocked.</p>
+
+    <div class="card" style="margin-bottom:var(--sp-4)">
+      <div class="progress-label-row"><span class="name">Uploading receipt.pdf</span><span class="pct" id="upload-pct">64%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="upload-fill" style="width:64%"></div></div>
+      <div class="row" style="margin-top:var(--sp-4)">
+        <button class="btn btn-ghost" id="simulate-btn" type="button">Simulate progress</button>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="progress-label-row"><span class="name">Import complete</span><span class="pct">100%</span></div>
+        <div class="progress-track"><div class="progress-fill success" style="width:100%"></div></div>
+      </div>
+      <div class="card">
+        <div class="progress-label-row"><span class="name">Syncing with your bank</span><span class="pct">—</span></div>
+        <div class="progress-track indeterminate"><div class="progress-fill"></div></div>
+      </div>
+    </div>
+
+    <div style="height:var(--sp-5)"></div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-around; text-align:center">
+        <div class="spinner-caption"><div class="spinner spinner-sm" style="color:var(--plum)"></div>sm · inline text</div>
+        <div class="spinner-caption"><div class="spinner spinner-md" style="color:var(--plum)"></div>md · cards, rows</div>
+        <div class="spinner-caption"><div class="spinner spinner-lg" style="color:var(--plum)"></div>lg · panel / page</div>
+        <div class="spinner-caption">
+          <button class="btn btn-primary btn-loading" disabled aria-busy="true">
+            <span class="spinner spinner-sm" style="color:var(--ink-fixed)"></span>Sending…
+          </button>
+          in a button
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMS -->
+  <section>
+    <KitSectionHeading title="Form fields" num="05" />
+    <p class="sec-note">A required field gets a small coral asterisk after the label — coral is otherwise reserved for errors, but this specific mark is universally recognized and won't be misread in context. It always ships with hidden text for screen readers, since an asterisk alone isn't reliably announced. Disabled fields mute to the Cloud-dim surface and drop the border contrast, signalling "not available" rather than "empty."</p>
+    <div class="row" style="align-items:flex-start">
+      <div class="field">
+        <label>Client email <span class="required-mark" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+        <input type="text" value="hello@brightpath.co">
+        <span class="hint">We'll send the invoice here.</span>
+      </div>
+      <div class="field">
+        <label>Amount due <span class="required-mark" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+        <input class="error" type="text" value="0.00">
+        <span class="error-msg">Enter an amount greater than $0.</span>
+      </div>
+      <div class="field">
+        <label>Invoice note</label>
+        <input type="text" placeholder="Optional message for your client">
+        <span class="hint">Placeholder text — check contrast in dark mode.</span>
+      </div>
+      <div class="field is-disabled">
+        <label>Invoice number</label>
+        <input type="text" value="INV-04821" disabled>
+        <span class="hint">Assigned automatically — can't be edited.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAGS -->
+  <section>
+    <KitSectionHeading title="Status tags" num="06" />
+    <p class="sec-note">A slight, consistent tilt on tags only — the one place the system allows itself to feel hand-placed. Everything else stays on-grid.</p>
+    <div class="row">
+      <span class="tag tag-live">Paid</span>
+      <span class="tag tag-pending">Pending</span>
+      <span class="tag tag-error">Overdue</span>
+      <span class="tag tag-info">Draft</span>
+    </div>
+  </section>
+
+  <!-- ALERTS -->
+  <section>
+    <KitSectionHeading title="Alerts" num="07" />
+    <div class="row" style="align-items:stretch; flex-direction:column; gap:var(--sp-3)">
+      <div class="alert alert-success"><div class="dot"></div><div><div class="alert-title">Invoice sent to Bright Path Co.</div><div class="alert-body">They'll get a reminder automatically if it's not paid within 7 days.</div></div></div>
+      <div class="alert alert-error"><div class="dot"></div><div><div class="alert-title">That card was declined</div><div class="alert-body">Check the card details or try a different payment method.</div></div></div>
+    </div>
+  </section>
+
+  <!-- SELECTION CONTROLS -->
+  <section>
+    <KitSectionHeading title="Selection controls" num="05b" />
+    <p class="sec-note">Native checkboxes and radios are visually hidden but stay in the DOM and fully keyboard/screen-reader operable — the styled box is a sibling element driven purely by CSS, not a replacement control. Marigold marks the "on" state everywhere for consistency.</p>
+    <div class="card">
+      <div class="row" style="gap:var(--sp-7); align-items:flex-start; flex-wrap:wrap">
+        <div class="option-group">
+          <span class="hint" style="font-weight:700; color:var(--ink)">Checkbox</span>
+          <label class="checkbox">
+            <input type="checkbox" checked>
+            <span class="box"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#1F2430" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+            <span>Email me a copy</span>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox">
+            <span class="box"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#1F2430" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+            <span>Auto-charge saved card</span>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" disabled>
+            <span class="box"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#1F2430" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+            <span>Locked by plan</span>
+          </label>
+        </div>
+
+        <div class="option-group">
+          <span class="hint" style="font-weight:700; color:var(--ink)">Radio</span>
+          <label class="radio"><input type="radio" name="billing" checked><span class="box"></span><span>Monthly</span></label>
+          <label class="radio"><input type="radio" name="billing"><span class="box"></span><span>Quarterly</span></label>
+          <label class="radio"><input type="radio" name="billing"><span class="box"></span><span>Annually</span></label>
+        </div>
+
+        <div class="option-group">
+          <span class="hint" style="font-weight:700; color:var(--ink)">Toggle</span>
+          <label class="toggle"><input type="checkbox" checked><span class="track"><span class="thumb"></span></span><span>Auto-remind clients</span></label>
+          <label class="toggle"><input type="checkbox"><span class="track"><span class="thumb"></span></span><span>Weekly summary email</span></label>
+          <label class="toggle"><input type="checkbox" disabled><span class="track"><span class="thumb"></span></span><span>Beta features</span></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPOSED FORM EXAMPLE -->
+  <section>
+    <KitSectionHeading title="Form example" num="05c" />
+    <p class="sec-note">All of the above, assembled into a real form — including a textarea and a typeahead autocomplete field. Try typing "s" or "m" into the City field.</p>
+    <div class="card" style="max-width:520px">
+      <h4 style="font-size:18px; margin-bottom:var(--sp-5)">New client</h4>
+
+      <div class="field" style="max-width:none; margin-bottom:var(--sp-4)">
+        <label>Client name <span class="required-mark" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+        <input type="text" placeholder="Bright Path Co.">
+      </div>
+
+      <div class="field" style="max-width:none; margin-bottom:var(--sp-4)">
+        <label>City</label>
+        <div class="combobox-wrap">
+          <input type="text" id="city-input" autocomplete="off" placeholder="Start typing…" role="combobox" aria-expanded="false" aria-controls="city-list" aria-autocomplete="list">
+          <div class="combobox-list" id="city-list" role="listbox"></div>
+        </div>
+        <span class="hint">Used to localize invoice dates and currency.</span>
+      </div>
+
+      <div class="field" style="max-width:none; margin-bottom:var(--sp-5)">
+        <label>Notes</label>
+        <textarea placeholder="Anything the team should know about this client…"></textarea>
+      </div>
+
+      <div style="margin-bottom:var(--sp-5)">
+        <span class="hint" style="font-weight:700; color:var(--ink); display:block; margin-bottom:10px">Billing frequency</span>
+        <div class="option-group">
+          <label class="radio"><input type="radio" name="billing-2" checked><span class="box"></span><span>Monthly</span></label>
+          <label class="radio"><input type="radio" name="billing-2"><span class="box"></span><span>Quarterly</span></label>
+        </div>
+      </div>
+
+      <label class="toggle" style="margin-bottom:var(--sp-5)">
+        <input type="checkbox" checked><span class="track"><span class="thumb"></span></span><span>Send automatic payment reminders</span>
+      </label>
+
+      <div class="row">
+        <button class="btn btn-primary" type="button">Create client</button>
+        <button class="btn btn-ghost" type="button">Cancel</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAV + DASHBOARD ASSEMBLY -->
+  <section>
+    <KitSectionHeading title="Assembled example" num="08" />
+    <p class="sec-note">The tokens above, working together on a real screen.</p>
+    <div class="kit-nav-mock" id="nav-mock">
+      <div class="kit-nav-brand"><span class="dot"></span>Fernwell</div>
+      <div class="kit-nav-links">
+        <a href="#" class="active">Invoices</a>
+        <a href="#">Clients</a>
+        <a href="#">Reports</a>
+      </div>
+      <div class="kit-nav-right">
+        <button class="kit-nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-dropdown" aria-label="Open navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="kit-nav-avatar">JM</div>
+      </div>
+      <div class="kit-nav-dropdown" id="nav-dropdown" role="menu">
+        <a href="#" class="active" role="menuitem">Invoices</a>
+        <a href="#" role="menuitem">Clients</a>
+        <a href="#" role="menuitem">Reports</a>
+      </div>
+    </div>
+    <div style="height:var(--sp-5)"></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="stat-label">Outstanding balance</div>
+        <div class="stat-value">$8,420</div>
+        <div class="stat-delta">↓ 12% vs last month</div>
+      </div>
+      <div class="card">
+        <div class="empty">
+          <div class="blob">✉️</div>
+          <h4>No invoices sent yet</h4>
+          <p>Create your first invoice and Fernwell will handle the reminders.</p>
+          <button class="btn btn-primary">Create invoice</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section>
+    <KitSectionHeading title="Motion" num="09" />
+    <dl class="kv">
+      <dt>Buttons &amp; controls</dt><dd>120ms ease, 1px lift on hover. Never bounce — playful lives in shape and color, not in springy easing.</dd>
+      <dt>Cards &amp; modals entering</dt><dd>180ms, fade + 8px rise. No scale-up — it reads as cheap on data-dense screens.</dd>
+      <dt>Success states</dt><dd>A single checkmark draw-in (~300ms) is the one place a slightly more expressive animation is earned — invoice sent, payment received.</dd>
+      <dt>Reduced motion</dt><dd>All transforms drop to opacity-only fades when prefers-reduced-motion is set.</dd>
+    </dl>
+  </section>
+
+  <!-- VOICE -->
+  <section>
+    <KitSectionHeading title="Voice" num="10" />
+    <dl class="kv">
+      <dt>Buttons</dt><dd>Name the action, not the mechanism: "Send invoice," not "Submit."</dd>
+      <dt>Errors</dt><dd>Say what happened and what to do next. Never apologize, never blame the user: "That card was declined," not "Oops! Something went wrong."</dd>
+      <dt>Empty states</dt><dd>An invitation, not a description: "No invoices sent yet" + a direct next action, not "You have no data."</dd>
+      <dt>Confirmations</dt><dd>Match the verb on the button: "Send invoice" → "Invoice sent."</dd>
+    </dl>
+  </section>
+
+  <p class="kit-note">Fernwell UI System v1.0 — tokens defined as CSS custom properties at the top of this file. Copy them directly into your codebase.</p>
+
+</div>
+<Footer />
+
+<script>
+  const btn = document.getElementById('theme-toggle') as HTMLButtonElement;
+  btn.addEventListener('click', () => {
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    btn.textContent = isDark ? '🌙 Preview dark theme' : '☀️ Preview light theme';
+  });
+
+  const navToggle = document.getElementById('nav-toggle') as HTMLButtonElement;
+  const navDropdown = document.getElementById('nav-dropdown') as HTMLElement;
+  const navMock = document.getElementById('nav-mock') as HTMLElement;
+
+  function closeNavDropdown() {
+    navDropdown.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = navDropdown.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  document.addEventListener('click', (e) => {
+    if (!navMock.contains(e.target as Node)) closeNavDropdown();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeNavDropdown();
+  });
+
+  const simulateBtn = document.getElementById('simulate-btn') as HTMLButtonElement;
+  const uploadFill = document.getElementById('upload-fill') as HTMLElement;
+  const uploadPct = document.getElementById('upload-pct') as HTMLElement;
+  simulateBtn.addEventListener('click', () => {
+    let pct = 0;
+    uploadFill.style.width = '0%';
+    uploadPct.textContent = '0%';
+    simulateBtn.disabled = true;
+    const timer = setInterval(() => {
+      pct = Math.min(100, pct + Math.round(8 + Math.random() * 14));
+      uploadFill.style.width = pct + '%';
+      uploadPct.textContent = pct + '%';
+      if (pct >= 100) {
+        clearInterval(timer);
+        simulateBtn.disabled = false;
+      }
+    }, 220);
+  });
+
+  const CITIES = ['Seattle', 'San Francisco', 'Portland', 'Denver', 'Austin', 'Chicago', 'Minneapolis', 'Salt Lake City', 'Boston', 'Miami'];
+
+  function setupCombobox(inputEl: HTMLInputElement, listEl: HTMLElement) {
+    let activeIndex = -1;
+    let currentOptions: string[] = [];
+
+    function render(matches: string[]) {
+      currentOptions = matches;
+      activeIndex = -1;
+      if (matches.length === 0) {
+        listEl.innerHTML = '<div class="combobox-empty">No matching city</div>';
+      } else {
+        listEl.innerHTML = matches.map((city, i) => {
+          const idx = city.toLowerCase().indexOf(inputEl.value.toLowerCase());
+          const label = inputEl.value && idx > -1
+            ? city.slice(0, idx) + '<b>' + city.slice(idx, idx + inputEl.value.length) + '</b>' + city.slice(idx + inputEl.value.length)
+            : city;
+          return `<div class="combobox-option" role="option" data-index="${i}">${label}</div>`;
+        }).join('');
+      }
+    }
+
+    function open() {
+      const q = inputEl.value.trim().toLowerCase();
+      const matches = q ? CITIES.filter((c) => c.toLowerCase().includes(q)) : CITIES;
+      render(matches);
+      listEl.classList.add('open');
+      inputEl.setAttribute('aria-expanded', 'true');
+    }
+    function close() {
+      listEl.classList.remove('open');
+      inputEl.setAttribute('aria-expanded', 'false');
+      activeIndex = -1;
+    }
+    function highlight(i: number) {
+      [...listEl.children].forEach((el) => el.classList.remove('active'));
+      if (i >= 0 && listEl.children[i]) {
+        listEl.children[i].classList.add('active');
+        listEl.children[i].scrollIntoView({ block: 'nearest' });
+      }
+      activeIndex = i;
+    }
+    function select(city: string) {
+      inputEl.value = city;
+      close();
+      inputEl.focus();
+    }
+
+    inputEl.addEventListener('input', open);
+    inputEl.addEventListener('focus', open);
+    inputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); if (!listEl.classList.contains('open')) open(); highlight(Math.min(activeIndex + 1, currentOptions.length - 1)); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); highlight(Math.max(activeIndex - 1, 0)); }
+      else if (e.key === 'Enter') { if (activeIndex > -1 && currentOptions[activeIndex]) { e.preventDefault(); select(currentOptions[activeIndex]); } }
+      else if (e.key === 'Escape') { close(); }
+    });
+    listEl.addEventListener('mousedown', (e) => {
+      const opt = (e.target as HTMLElement).closest('.combobox-option') as HTMLElement | null;
+      if (opt) select(currentOptions[Number(opt.dataset.index)]);
+    });
+    document.addEventListener('click', (e) => {
+      if (!inputEl.contains(e.target as Node) && !listEl.contains(e.target as Node)) close();
+    });
+  }
+  setupCombobox(document.getElementById('city-input') as HTMLInputElement, document.getElementById('city-list') as HTMLElement);
+</script>
+</BaseLayout>

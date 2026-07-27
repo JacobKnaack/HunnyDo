@@ -1,0 +1,15 @@
+---
+interface Props {
+  name: string;
+  use: string;
+  wrapStyle?: string;
+}
+
+const { name, use, wrapStyle } = Astro.props;
+---
+
+<div class="icon-tile">
+  <div class="ic-wrap" style={wrapStyle}><slot /></div>
+  <div class="ic-name">{name}</div>
+  <div class="ic-use">{use}</div>
+</div>

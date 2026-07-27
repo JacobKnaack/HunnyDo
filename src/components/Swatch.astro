@@ -1,0 +1,19 @@
+---
+interface Props {
+  name: string;
+  hex: string;
+  use?: string;
+  chipStyle?: string;
+}
+
+const { name, hex, use, chipStyle } = Astro.props;
+---
+
+<div class="swatch">
+  <div class="chip" style={chipStyle ?? `background:${hex}`}></div>
+  <div class="meta">
+    <div class="name">{name}</div>
+    <div class="hex">{hex}</div>
+    {use && <div class="use">{use}</div>}
+  </div>
+</div>
