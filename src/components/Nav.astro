@@ -27,8 +27,53 @@ const { links, ctaHref, ctaLabel, active } = Astro.props;
       {links.map((link) => <a href={link.href} class={link.href === active ? 'active' : undefined}>{link.label}</a>)}
     </div>
     <div class="nav-right">
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg class="icon-menu" viewBox="0 0 20 20" fill="none"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg class="icon-close" viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
       <ThemeToggle />
       <Button href={ctaHref} variant="primary" style="padding:9px 18px; font-size:13.5px;">{ctaLabel}</Button>
     </div>
+    <div class="mobile-menu" id="mobile-menu">
+      {links.map((link) => <a href={link.href} class={link.href === active ? 'active' : undefined}>{link.label}</a>)}
+    </div>
   </div>
 </div>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  function closeMenu() {
+    menu?.classList.remove('open');
+    toggle?.setAttribute('aria-expanded', 'false');
+  }
+
+  function openMenu() {
+    menu?.classList.add('open');
+    toggle?.setAttribute('aria-expanded', 'true');
+  }
+
+  toggle?.addEventListener('click', () => {
+    if (menu?.classList.contains('open')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!(e.target instanceof Node) || !menu || !toggle) return;
+    if (!menu.contains(e.target) && !toggle.contains(e.target)) closeMenu();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 720) closeMenu();
+  });
+</script>
