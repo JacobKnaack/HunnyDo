@@ -11,16 +11,20 @@ interface Props {
   links: NavLink[];
   ctaHref: string;
   ctaLabel: string;
+  active?: string;
 }
 
-const { links, ctaHref, ctaLabel } = Astro.props;
+const { links, ctaHref, ctaLabel, active } = Astro.props;
 ---
 
 <div class="wrap">
   <div class="nav-mock">
-    <div class="nav-brand"><span class="hex"></span>HunnyDo</div>
+    <div class="nav-brand">
+      <span class="hex"></span>
+      <a id="brand-link" href="/">HunnyDo</a>
+    </div>
     <div class="nav-links">
-      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+      {links.map((link) => <a href={link.href} class={link.href === active ? 'active' : undefined}>{link.label}</a>)}
     </div>
     <div class="nav-right">
       <ThemeToggle />

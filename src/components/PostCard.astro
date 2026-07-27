@@ -1,0 +1,35 @@
+---
+import HexCover from './HexCover.astro';
+import CategoryTag from './CategoryTag.astro';
+import { avatarInitials, type Category } from '../lib/blog';
+
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  date: Date;
+  author: string;
+  category: Category;
+  coverImage?: string;
+}
+
+const { slug, title, description, date, author, category, coverImage } = Astro.props;
+const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+---
+
+<a class="post-card" href={`/blog/${slug}.html`} data-cat={category}>
+  <div class="post-cover">
+    <HexCover slug={slug} category={category} coverImage={coverImage} alt="" />
+  </div>
+  <div class="post-card-body">
+    <CategoryTag category={category} />
+    <h3>{title}</h3>
+    <p class="excerpt">{description}</p>
+    <div class="post-meta">
+      <div class="avatar">{avatarInitials(author)}</div>
+      <span class="who">{author}</span>
+      <span class="sep">&middot;</span>
+      <span class="when">{formattedDate}</span>
+    </div>
+  </div>
+</a>

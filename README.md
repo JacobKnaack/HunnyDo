@@ -9,7 +9,7 @@ The public marketing site for **HunnyDo**, a digital checklist tool that lets yo
 
 An [Astro](https://astro.build) site — four pages (landing page, 404, brand kit, and the Fernwell design-language reference) built from a shared set of components instead of hand-copied HTML.
 
-```
+```txt
 .
 ├── src/
 │   ├── layouts/

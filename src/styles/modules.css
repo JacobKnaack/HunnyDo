@@ -513,7 +513,12 @@ font-weight: 600;
   }
 
   .btn,
-  .btn:hover {
+  .btn:hover,
+  .post-card,
+  .post-card:hover,
+  .featured-card,
+  .featured-card:hover,
+  .icon-btn {
     transform: none;
   }
 }

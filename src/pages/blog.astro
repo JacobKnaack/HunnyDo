@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import FeaturedPost from '../components/FeaturedPost.astro';
+import PostCard from '../components/PostCard.astro';
+import { getAllPosts, getFeaturedPost, CATEGORY_META } from '../lib/blog';
+
+const navLinks = [
+  { href: '/#usecases', label: "Who it's for" },
+  { href: '/#features', label: 'Features' },
+  { href: '/#pricing', label: 'Pricing' },
+  { href: '/blog.html', label: 'Blog' },
+];
+
+const posts = await getAllPosts();
+const featured = getFeaturedPost(posts);
+const gridPosts = featured ? posts.filter((p) => p.slug !== featured.slug) : posts;
+
+const categoryKeys = Object.keys(CATEGORY_META) as (keyof typeof CATEGORY_META)[];
+---
+
+<BaseLayout
+  title="Blog — HunnyDo"
+  description="Notes on checklists, follow-ups, and getting people to actually finish the thing — from the team building HunnyDo."
+>
+  <Nav links={navLinks} ctaHref="https://app.hunnydo.cloud" ctaLabel="Start free" active="/blog.html" />
+
+  <header class="blog-hero">
+    <span class="eyebrow">HunnyDo Blog</span>
+    <h1>Field notes on client onboarding</h1>
+    <p class="lede">Practical checklists, product updates, and stories from agencies and freelancers who've traded email chains for something clients actually finish.</p>
+  </header>
+
+  {posts.length > 0 ? (
+    <>
+      <div class="filters" id="filters">
+        <button class="filter-pill active" data-filter="all"><span class="dot"></span>All posts</button>
+        {categoryKeys.map((key) => (
+          <button class="filter-pill" data-filter={key}><span class="dot"></span>{CATEGORY_META[key].filterLabel}</button>
+        ))}
+      </div>
+
+      {featured && (
+        <section class="featured" id="featured-section">
+          <FeaturedPost {...featured} />
+        </section>
+      )}
+
+      <div class="grid-wrap">
+        <div class="post-grid" id="post-grid">
+          {gridPosts.map((post) => <PostCard {...post} />)}
+        </div>
+        <p class="blog-empty fade-hidden" id="filter-empty">No posts match this filter yet.</p>
+      </div>
+    </>
+  ) : (
+    <div class="grid-wrap">
+      <p class="blog-empty">Nothing published yet — check back soon.</p>
+    </div>
+  )}
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const pills = document.querySelectorAll('.filter-pill');
+  const cards = document.querySelectorAll('#post-grid .post-card');
+  const featuredSection = document.getElementById('featured-section');
+  const filterEmpty = document.getElementById('filter-empty');
+  pills.forEach((p) => {
+    p.addEventListener('click', () => {
+      pills.forEach((x) => x.classList.remove('active'));
+      p.classList.add('active');
+      if (p instanceof HTMLElement) {
+        const f = p.dataset.filter;
+        let visibleCount = 0;
+        cards.forEach((c) => {
+          if (c instanceof HTMLElement) {
+            const hidden = f !== 'all' && c.dataset.cat !== f;
+            c.classList.toggle('fade-hidden', hidden);
+            if (!hidden) visibleCount++;
+          }
+        })
+        if (featuredSection) {
+          const card = featuredSection.querySelector('.featured-card');
+          if (card instanceof HTMLElement) {
+            const featuredCat = card ? card.dataset.cat : undefined;
+            const featuredVisible = f === 'all' || featuredCat === f;
+            featuredSection.style.display = featuredVisible ? '' : 'none';
+            if (featuredVisible) visibleCount++;
+          }
+        }
+        filterEmpty?.classList.toggle('fade-hidden', visibleCount > 0);
+      }
+    });
+  });
+</script>

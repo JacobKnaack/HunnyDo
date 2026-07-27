@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import HexCover from '../../components/HexCover.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getAllPosts, getPostBySlug, getRelatedPosts, avatarInitials, CATEGORY_META } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ params: { slug: post.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = await getPostBySlug(slug);
+if (!post) return Astro.redirect('/blog.html');
+
+const { Content, title, description, date, author, category, tags, readingTimeMinutes, coverImage } = post;
+const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const categoryMeta = CATEGORY_META[category];
+
+const allPosts = await getAllPosts();
+const related = getRelatedPosts(post, allPosts, 3);
+
+const navLinks = [
+  { href: '/#usecases', label: "Who it's for" },
+  { href: '/#features', label: 'Features' },
+  { href: '/#pricing', label: 'Pricing' },
+  { href: '/blog.html', label: 'Blog' },
+];
+---
+
+<BaseLayout title={`${title} — HunnyDo Blog`} description={description}>
+  <Nav links={navLinks} ctaHref="https://app.hunnydo.cloud" ctaLabel="Start free" active="/blog.html" />
+  <div class="reading-progress"><div class="reading-progress-fill" id="reading-fill"></div></div>
+
+  <main class="article-wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/blog.html">Blog</a><span class="sep">/</span><span>{categoryMeta.label}</span><span class="sep">/</span><span>{title}</span>
+    </nav>
+
+    <header class="article-header">
+      <span class={`post-tag ${categoryMeta.tagClass}`}>{categoryMeta.label}</span>
+      <h1>{title}</h1>
+      <p class="dek">{description}</p>
+
+      <div class="byline">
+        <div class="byline-left">
+          <div class="avatar">{avatarInitials(author)}</div>
+          <div>
+            <div class="byline-name">{author}</div>
+            <div class="byline-meta">{formattedDate} &middot; {readingTimeMinutes} min read</div>
+          </div>
+        </div>
+        <div class="share-row">
+          <button class="icon-btn" id="copy-link-btn" aria-label="Copy link" type="button">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M6.5 9.5a2.5 2.5 0 0 0 3.5.2l2-2a2.5 2.5 0 0 0-3.5-3.5l-1 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 6.5a2.5 2.5 0 0 0-3.5-.2l-2 2a2.5 2.5 0 0 0 3.5 3.5l1-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <a class="icon-btn" aria-label="Share on X" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}`} target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M2 2l5.3 6.8L2.3 14h1.4l4.4-4.7L11.5 14H14L8.4 6.8 13 2h-1.4L7.6 6.3 4.5 2H2z" fill="currentColor"/></svg>
+          </a>
+          <a class="icon-btn" aria-label="Share via email" href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description)}%0A%0A`}>
+            <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3.5" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M2.5 4.5L8 9l5.5-4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="cover">
+      <HexCover slug={slug} category={category} coverImage={coverImage} alt="" />
+    </div>
+
+    <article class="prose">
+      <Content />
+    </article>
+
+    {tags.length > 0 && (
+      <div class="article-tags">
+        {tags.map((tag) => <span class="tag-pill">{tag}</span>)}
+      </div>
+    )}
+
+    <div class="author-card">
+      <div class="avatar">{avatarInitials(author)}</div>
+      <div>
+        <h4>{author}</h4>
+        <p>The team building HunnyDo — checklists that follow up so you don't have to.</p>
+        <a class="follow" href="/blog.html">More from the blog &rarr;</a>
+      </div>
+    </div>
+  </main>
+
+  {related.length > 0 && (
+    <div class="related-wrap">
+      <div class="related-head">
+        <h3>Keep reading</h3>
+        <a href="/blog.html">All posts &rarr;</a>
+      </div>
+      <div class="related-grid">
+        {related.map((relatedPost) => <PostCard {...relatedPost} />)}
+      </div>
+    </div>
+  )}
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const fill = document.getElementById('reading-fill');
+  const article = document.querySelector('.prose');
+  function updateProgress() {
+    if (!fill || !article) return;
+    const rect = article.getBoundingClientRect();
+    const total = rect.height - window.innerHeight * 0.5;
+    const scrolled = Math.min(Math.max(-rect.top, 0), total);
+    const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    fill.style.width = pct + '%';
+  }
+  document.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  const copyBtn = document.getElementById('copy-link-btn');
+  copyBtn?.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    copyBtn.classList.add('copied');
+    setTimeout(() => copyBtn.classList.remove('copied'), 1500);
+  });
+</script>

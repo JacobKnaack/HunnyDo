@@ -1,0 +1,12 @@
+---
+import { CATEGORY_META, type Category } from '../lib/blog';
+
+interface Props {
+  category: Category;
+}
+
+const { category } = Astro.props;
+const meta = CATEGORY_META[category];
+---
+
+<span class={`post-tag ${meta.tagClass}`}>{meta.label}</span>
