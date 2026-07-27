@@ -65,10 +65,7 @@
 }
 
 /* ---- nav ---- */
-.nav-mock {
-  position: sticky;
-  top: var(--sp-4);
-  z-index: 40;
+.nav-container {
   background: var(--plum);
   border-radius: var(--r-lg);
   padding: 14px var(--sp-5);
@@ -77,6 +74,11 @@
   justify-content: space-between;
   box-shadow: var(--shadow-md);
   margin: var(--sp-5) auto 0;
+}
+.wrap:has(div.nav-container) {
+  position: sticky;
+  top: var(--sp-5);
+  z-index: 100;
 }
 
 .nav-brand {
