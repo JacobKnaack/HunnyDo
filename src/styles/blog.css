@@ -79,7 +79,7 @@
 .blog-empty { text-align: center; color: var(--ink-soft); padding: var(--sp-8) 0; }
 
 /* ================= featured post ================= */
-.featured { max-width: 1160px; margin: 0 auto var(--sp-8); padding: 0 var(--sp-5); }
+.featured-slug { max-width: 1160px; margin: 0 auto var(--sp-8); padding: 0 var(--sp-5); }
 .featured-card {
   background: var(--white); border: 1.5px solid var(--cloud-dim); border-radius: var(--r-xl);
   box-shadow: var(--shadow-md); overflow: hidden; display: grid; grid-template-columns: 1.1fr 1fr;
