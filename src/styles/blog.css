@@ -199,6 +199,9 @@
 .prose figure .cover { margin: 0; aspect-ratio: 16 / 9; }
 .prose figcaption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
 
+/* ================= giscus comments ================= */
+.comments { max-width: 900px; margin: 0 auto; padding-top: 0; padding-bottom: var(--sp-9); }
+
 /* ================= tag footer / author card ================= */
 .article-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: var(--sp-8); }
 .article-tags .tag-pill {

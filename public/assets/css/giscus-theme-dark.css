@@ -1,0 +1,34 @@
+main {
+  /* Surfaces — Fernwell dark: Ink (bg), Surface (cards/inputs) */
+  --color-canvas-default: #14161c;
+  --color-canvas-overlay: #1d2029;
+  --color-canvas-inset: #14161c;
+  --color-canvas-subtle: #1d2029;
+
+  /* Text — Fernwell dark: Cloud (text), Ink-Soft (muted) */
+  --color-fg-default: #f2f1ea;
+  --color-fg-muted: #9ca1b0;
+  --color-fg-subtle: #9ca1b0;
+  --color-fg-on-emphasis: #1f2430;
+
+  /* Borders — Surface border / Cloud-dim (dark) */
+  --color-border-default: #2b2f3b;
+  --color-border-muted: #2b2f3b;
+  --color-neutral-muted: rgba(43, 47, 59, 0.5);
+
+  /* Accent — Marigold (fixed across themes) */
+  --color-accent-fg: #ffc145;
+  --color-accent-emphasis: #ffc145;
+
+  /* Status — Meadow / Coral / Sky, dark-mode brightened */
+  --color-success-fg: #55d194;
+  --color-attention-fg: #ffd166;
+  --color-danger-fg: #ff8478;
+  --color-danger-emphasis: #ff8478;
+  --color-attention-subtle: rgba(255, 193, 69, 0.16);
+  --color-danger-subtle: rgba(255, 132, 120, 0.14);
+  --color-success-subtle: rgba(85, 209, 148, 0.14);
+  --color-neutral-emphasis: #9ca1b0;
+
+  --color-primer-shadow-inset: 0 0 transparent;
+}

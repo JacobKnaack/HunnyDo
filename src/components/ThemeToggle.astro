@@ -2,9 +2,22 @@
 
 <script>
   const btn = document.getElementById('theme-toggle');
+
+  function syncGiscusTheme(theme: 'light' | 'dark') {
+    const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+    if (!iframe?.contentWindow) return;
+    const url = `${location.origin}/assets/css/giscus-theme-${theme}.css`;
+    iframe.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: url } } },
+      'https://giscus.app',
+    );
+  }
+
   btn?.addEventListener('click', () => {
     const isDark = document.body.getAttribute('data-theme') === 'dark';
-    document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    const next = isDark ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', next);
     btn.textContent = isDark ? '🌙' : '☀️';
+    syncGiscusTheme(next);
   });
 </script>
