@@ -1,10 +1,12 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import { seedFromSlug, CATEGORY_META, type Category } from '../lib/blog';
 
 interface Props {
   slug: string;
   category: Category;
-  coverImage?: string;
+  coverImage?: ImageMetadata;
   alt?: string;
 }
 
@@ -14,7 +16,7 @@ const accent = CATEGORY_META[category].accent;
 ---
 
 {coverImage ? (
-  <img src={coverImage} alt={alt} loading="lazy" />
+  <Image src={coverImage} alt={alt} loading="lazy" />
 ) : (
   <div class="hexcover" data-seed={seed} data-accent={accent}></div>
 )}

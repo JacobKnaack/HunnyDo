@@ -7,6 +7,7 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { MarkdownHeading } from 'astro';
+import type { ImageMetadata } from 'astro';
 
 export type Category = 'guides' | 'product' | 'case' | 'freelance';
 
@@ -27,7 +28,7 @@ export interface PostSummary {
   category: Category;
   featured: boolean;
   tags: string[];
-  coverImage?: string;
+  coverImage?: ImageMetadata;
   readingTimeMinutes: number;
 }
 
