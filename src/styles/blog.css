@@ -199,7 +199,15 @@
 .prose figure { margin: var(--sp-7) 0; }
 .prose figure .cover { margin: 0; aspect-ratio: 16 / 9; }
 .prose figcaption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
-.prose img { max-width: 100%; height: auto; display: block; border-radius: var(--r-lg); border: 1.5px solid var(--cloud-dim); box-shadow: var(--shadow-sm); }
+.prose img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--r-lg);
+  border: 1.5px solid var(--cloud-dim);
+  box-shadow: var(--shadow-sm);
+  margin: 0 auto;
+}
 
 /* ================= giscus comments ================= */
 .comments { max-width: 900px; margin: 0 auto; padding-top: 0; padding-bottom: var(--sp-9); }
