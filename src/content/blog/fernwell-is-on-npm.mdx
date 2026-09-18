@@ -19,7 +19,7 @@ The first step to using Fernwell is installing within your browser application. 
 npm install fernwell
 ```
 
-For those that aren't using Node and just want to add to their HTML / CSS / JS Browser application, simply use the following HTML to download via a CDN:
+For those that aren't using Node and just want to add Fernwell to their HTML / CSS / JS Browser application, use the following HTML to download via a CDN:
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/fernwell/dist/fernwell.min.css">
@@ -35,9 +35,110 @@ Both can be added to the head of your HTML document.
 
 ## How it works
 
-Once installed, Fernwell uses a series of tokens (not the AI kind) that provide styling specifications to your application.  These tokens provide values that give Fernwell it's unique look and feel.  Think colors, fonts, pixels values, and CSS properties and keyword.  Along with this are CSS blocks and JavaScript modules that power the Fernwell components.
+Once installed, Fernwell uses a series of tokens (not the AI kind) that provide styling specifications to your application.  These tokens provide values that give Fernwell it's unique look and feel.  Think colors, fonts, pixels values, and CSS properties and keywords.  Along with this are CSS blocks and JavaScript modules that power the Fernwell components.
 
-Everything is opt-in so there is nothing that will magically happen without some quick and simple configuration.  For the styles you will need to add classes to your HTML markup:
+Everything is opt-in so there is nothing that will magically happen without some quick and simple configuration.  Let's walk through a quick example to showcase some of the features.  Let's say we have Invoice Data that we would like to display as a table.  We can start by composing our markup as HTML:
+
+```html
+<table>
+  <caption>Invoices</caption>
+  <thead>
+    <tr>
+      <th>
+        <span>Client</span>
+      </th>
+      <th>
+        <span>Amount</span>
+      </th>
+      <th>
+        <span>Status</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span>Bright Path</span>
+      </td>
+      <td>
+        <span>$1250.00</span>
+      </td>
+      <td>
+        <span>Paid</span>
+      </td>
+    </tr>
+    <!-- MORE ROWS HERE -->
+  </tbody>
+</table>
+```
+
+This displays the data in a clear and concise table with 3 columns.  Nothing Fancy:
+
+<table style="width: 100%">
+  <caption>Invoices</caption>
+  <thead>
+    <tr>
+      <th>
+        <span>Client</span>
+      </th>
+      <th>
+        <span>Amount</span>
+      </th>
+      <th>
+        <span>Status</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span>Bright Path</span>
+      </td>
+      <td>
+        <span>$1250.00</span>
+      </td>
+      <td>
+        <span>Paid</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>Maple Co.</span>
+      </td>
+      <td>
+        <span>$980.00</span>
+      </td>
+      <td>
+        <span>Overdue</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>Harbor Dental</span>
+      </td>
+      <td>
+        <span>$3,450.00</span>
+      </td>
+      <td>
+        <span>Pending</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>Jupiter Studio</span>
+      </td>
+      <td>
+        <span>$640.00</span>
+      </td>
+      <td>
+        <span>Draft</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+Once we install Fernwell, we can quickly upgrade this by adding the attributes that Fernwell reads to provide added functionality and styling.  We have added some extra elements to provide quality of life upgrades like enhanced scrolling behavior and sorting by column type, but now our markup looks like this:
 
 ```html
 <div class="fw-table-wrap">
@@ -56,7 +157,9 @@ Everything is opt-in so there is nothing that will magically happen without some
           <th scope="col" aria-sort="none" data-fw-sort>
             <button type="button" class="fw-table-sort">Client</button>
           </th>
-          <th scope="col" class="fw-table-num" aria-sort="none" data-fw-sort><button type="button" class="fw-table-sort">Amount</button></th>
+          <th scope="col" class="fw-table-num" aria-sort="none" data-fw-sort>
+            <button type="button" class="fw-table-sort">Amount</button>
+            </th>
           <th scope="col">Status</th>
         </tr>
       </thead>
@@ -118,7 +221,7 @@ table.addEventListener('fw:select', (e) => {
 });
 ```
 
-This provides us with an interactive table that can be made fully interactive client side:
+This provides us with a great looking table that is made fully interactive client side:
 
 <div class="fw-table-wrap">
   <div class="fw-table-scroll" tabindex="0" role="region" aria-labelledby="inv-cap">
@@ -194,4 +297,4 @@ This provides us with an interactive table that can be made fully interactive cl
 
 This is just the beginning of the journey for Fernwell, so stay tuned as development progresses.  We will be adding features and making adjustments as the browser eco-system changes.
 
-We are open to contributors!  If you feel there is a way to make Fernwell better we are happy to here from you.  Create an issue or open a PR and we accept any contributions that we feel enhance the library.
+We are open to contributors!  If you feel there is a way to make Fernwell better we are happy to hear from you.  Create an issue or open a PR and we'll accept any contributions that we feel enhance the library.
