@@ -10,7 +10,7 @@ import Footer from '../components/Footer.astro';
 
   <main>
     <div class="panel">
-      <span class="tag">ERROR · 404</span>
+      <span class="fw-tag fw-tag-info">ERROR · 404</span>
 
       <div class="blob" aria-hidden="true">
         <svg viewBox="0 0 48 48" fill="none">
@@ -59,7 +59,7 @@ import Footer from '../components/Footer.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--sp-6) var(--sp-5) var(--sp-8);
+    padding: var(--fw-sp-6) var(--fw-sp-5) var(--fw-sp-8);
   }
 
   .panel {
@@ -70,37 +70,26 @@ import Footer from '../components/Footer.astro';
     align-items: center;
   }
 
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 5px 12px;
-    border-radius: var(--r-md);
-    transform: rotate(-2deg);
-    background: var(--sky-bg);
-    color: var(--sky);
-    margin-bottom: var(--sp-5);
+  .panel :global(.fw-tag) {
+    margin-bottom: var(--fw-sp-5);
     letter-spacing: 0.04em;
   }
 
   .blob {
     width: 112px;
     height: 112px;
-    margin-bottom: var(--sp-5);
+    margin-bottom: var(--fw-sp-5);
     border-radius: 38% 62% 60% 40% / 48% 42% 58% 52%;
-    background: linear-gradient(135deg, var(--marigold), #FFD988);
+    background: linear-gradient(135deg, var(--fw-primary), #FFD988);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow-marigold);
+    box-shadow: var(--fw-shadow-primary);
   }
   .blob svg {
     width: 48px;
     height: 48px;
-    color: var(--ink-fixed);
+    color: var(--fw-on-primary);
   }
 
   h1 {
@@ -112,27 +101,27 @@ import Footer from '../components/Footer.astro';
 
   .lede {
     font-size: 15px;
-    color: var(--ink-soft);
-    margin-top: var(--sp-3);
+    color: var(--fw-text-soft);
+    margin-top: var(--fw-sp-3);
     max-width: 38ch;
   }
 
   .actions {
     display: flex;
-    gap: var(--sp-3);
+    gap: var(--fw-sp-3);
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: var(--sp-6);
+    margin-top: var(--fw-sp-6);
   }
-  .actions :global(.btn) {
+  .actions :global(.fw-btn) {
     padding: 12px 22px;
     font-size: 15px;
   }
 
   .suggest {
-    margin-top: var(--sp-7);
-    padding-top: var(--sp-6);
-    border-top: 1.5px solid var(--cloud-dim);
+    margin-top: var(--fw-sp-7);
+    padding-top: var(--fw-sp-6);
+    border-top: 1.5px solid var(--fw-bg-dim);
     width: 100%;
     max-width: 360px;
   }
@@ -141,9 +130,9 @@ import Footer from '../components/Footer.astro';
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--ink-soft);
-    font-family: var(--font-mono);
-    margin-bottom: var(--sp-3);
+    color: var(--fw-text-soft);
+    font-family: var(--fw-font-mono);
+    margin-bottom: var(--fw-sp-3);
   }
   .suggest .links {
     display: flex;
@@ -154,13 +143,13 @@ import Footer from '../components/Footer.astro';
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
-    color: var(--plum);
+    color: var(--fw-secondary);
     padding: 8px 10px;
-    border-radius: var(--r-sm);
+    border-radius: var(--fw-r-sm);
     transition: background .12s ease;
   }
   .suggest a:hover {
-    background: var(--white);
+    background: var(--fw-surface);
   }
 
   @media (max-width: 480px) {

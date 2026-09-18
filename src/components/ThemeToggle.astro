@@ -1,8 +1,7 @@
-<button class="theme-btn" id="theme-toggle" aria-label="Toggle dark theme">🌙</button>
+<button class="fw-nav-btn" data-fw-theme-toggle aria-label="Toggle dark theme"
+        data-fw-theme-icon-light="moon" data-fw-theme-icon-dark="sun"></button>
 
 <script>
-  const btn = document.getElementById('theme-toggle');
-
   function syncGiscusTheme(theme: 'light' | 'dark') {
     const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
     if (!iframe?.contentWindow) return;
@@ -13,11 +12,7 @@
     );
   }
 
-  btn?.addEventListener('click', () => {
-    const isDark = document.body.getAttribute('data-theme') === 'dark';
-    const next = isDark ? 'light' : 'dark';
-    document.body.setAttribute('data-theme', next);
-    btn.textContent = isDark ? '🌙' : '☀️';
-    syncGiscusTheme(next);
+  document.addEventListener('fw:themechange', (e: Event) => {
+    syncGiscusTheme((e as CustomEvent<'light' | 'dark'>).detail);
   });
 </script>

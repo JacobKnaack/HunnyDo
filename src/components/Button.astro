@@ -9,6 +9,6 @@ interface Props {
 const { href, variant = 'primary', class: className, style } = Astro.props;
 ---
 
-<a href={href} class={['btn', `btn-${variant}`, className].filter(Boolean).join(' ')} style={style}>
+<a href={href} class={['fw-btn', `fw-btn-${variant}`, className].filter(Boolean).join(' ')} style={style}>
   <slot />
 </a>

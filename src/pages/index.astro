@@ -77,17 +77,17 @@ const navLinks = [
       />
       <div class="feature-grid">
         <FeatureCard
-          icon="📋"
+          icon="check"
           title="Build a checklist in minutes"
           description="List out exactly what you need — documents, signatures, decisions — assign each item to a person, and set a due date."
         />
         <FeatureCard
-          icon="🔔"
+          icon="bell"
           title="Reminders that actually work"
           description={'HunnyDo follows up automatically until each item is checked off, so you don\'t have to send "hey, did you..." a fifth time.'}
         />
         <FeatureCard
-          icon="👀"
+          icon="eye"
           title="See who's holding things up"
           description="One dashboard shows what's done, what's pending, and exactly who's dragging their feet — no chasing down the answer yourself."
         />
@@ -137,7 +137,12 @@ const navLinks = [
           amount="$0"
           period="/mo"
           description="For the honey-do list and the group trip."
-          features={['Unlimited checklists', 'Automatic reminders', 'Unlimited team members']}
+          features={[
+            'Unlimited checklists',
+            'Automatic reminders',
+            'Unlimited team members',
+            'Contact lists',
+            ]}
           ctaHref="https://app.hunnydo.cloud"
           ctaLabel="Start free"
           ctaVariant="ghost"
@@ -151,8 +156,9 @@ const navLinks = [
             'Unlimited checklists',
             'Automatic reminders',
             'Unlimited team members',
-            'Reusable templates',
             'Contact lists',
+            'Project management',
+            'Reusable templates',
             'Secure client links',
             'Secure file sharing',
           ]}

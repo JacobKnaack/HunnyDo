@@ -1,4 +1,5 @@
 ---
+import 'fernwell/css';
 import '../styles/global.css';
 
 interface Props {
@@ -25,6 +26,7 @@ const ogImageURL = new URL(ogImage, Astro.site);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script is:inline>document.documentElement.dataset.theme=localStorage.getItem('fw-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')</script>
 <meta charset="UTF-8">
 <title>{title}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,7 +75,11 @@ const ogImageURL = new URL(ogImage, Astro.site);
   })} />
 )}
 </head>
-<body>
+<body class="fw-root">
 <slot />
+<script>
+  import { init } from 'fernwell';
+  init();
+</script>
 </body>
 </html>
