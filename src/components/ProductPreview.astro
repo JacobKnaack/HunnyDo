@@ -21,6 +21,12 @@ const pillLabel: Record<Status, string> = {
   waiting: 'Waiting',
   overdue: 'Overdue',
 };
+
+const pillVariant: Record<Status, string> = {
+  done: 'fw-tag-live',
+  waiting: 'fw-tag-pending',
+  overdue: 'fw-tag-error',
+};
 ---
 
 <div class="product-frame">
@@ -40,7 +46,7 @@ const pillLabel: Record<Status, string> = {
     </div>
     <div class="progress-mini">
       <div class="pct">{progressPercent}%</div>
-      <div class="progress-track"><div class="progress-fill" style={`width:${progressPercent}%`}></div></div>
+      <div class="fw-progress"><div class="fw-progress-fill" style={`width:${progressPercent}%`}></div></div>
     </div>
   </div>
 
@@ -56,7 +62,7 @@ const pillLabel: Record<Status, string> = {
           <div class={`title ${row.status === 'done' ? 'struck' : ''}`}>{row.title}</div>
           <div class="assignee">{row.assignee}</div>
         </div>
-        <span class={`pill pill-${row.status}`}>{pillLabel[row.status]}</span>
+        <span class={`fw-tag fw-tag-pill ${pillVariant[row.status]}`}>{pillLabel[row.status]}</span>
       </div>
     ))}
   </div>

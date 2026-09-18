@@ -44,13 +44,13 @@ const accent = CATEGORY_META[category].accent;
 
   function renderHexCover(el) {
     const seed = Number(el.dataset.seed) || 1;
-    const accent = el.dataset.accent || 'var(--marigold)';
+    const accent = el.dataset.accent || 'var(--fw-primary)';
     const rng = seededRandom(seed);
     const R = 25, cols = 8, rows = 5;
     const hspace = Math.sqrt(3) * R, vspace = 1.5 * R;
     const w = hspace * cols + hspace * 0.7;
     const h = vspace * rows + R * 1.6;
-    const palette = ['var(--white)', 'var(--cloud-dim)', 'var(--white)', 'var(--cloud-dim)'];
+    const palette = ['var(--fw-surface)', 'var(--fw-bg-dim)', 'var(--fw-surface)', 'var(--fw-bg-dim)'];
     const checkedIdx = Math.floor(rng() * cols * rows);
     let idx = 0, out = '';
     for (let r = 0; r < rows; r++) {
@@ -64,7 +64,7 @@ const accent = CATEGORY_META[category].accent;
         const rr = R * 0.87;
         out += `<path d="M ${hexPoints(x, y, rr)} Z" fill="${fill}" opacity="${opacity}"/>`;
         if (isCheck) {
-          out += `<path d="M${x - rr * 0.35},${y} L${x - rr * 0.06},${y + rr * 0.32} L${x + rr * 0.4},${y - rr * 0.34}" fill="none" stroke="var(--ink)" stroke-width="${(rr * 0.16).toFixed(1)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+          out += `<path d="M${x - rr * 0.35},${y} L${x - rr * 0.06},${y + rr * 0.32} L${x + rr * 0.4},${y - rr * 0.34}" fill="none" stroke="var(--fw-text)" stroke-width="${(rr * 0.16).toFixed(1)}" stroke-linecap="round" stroke-linejoin="round"/>`;
         }
         idx++;
       }

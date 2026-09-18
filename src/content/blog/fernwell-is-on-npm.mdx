@@ -1,0 +1,197 @@
+---
+title: Fernwell is on NPM
+description: The Fernwell design system is now available on the NPM registry.  Add it to your project today!
+date: 2026-09-17
+author: Jacob Knaack
+category: product
+tags: [product update, guides]
+featured: true
+coverImage: ../../assets/blog/fernwell-is-on-npm/hero.png
+---
+
+We are happy to announce that Fernwell is now available as a stand alone library that can added to any web application that runs in the Browser.  This was a goal from the very start of the project, and we are thrilled that anyone can use Fernwell to design and build high performant, accessible interfaces easily from NPM the unpkg CDN.
+
+## Installing and using Fernwell
+
+The first step to using Fernwell is installing within your browser application.  This is pretty standard for anyone familiar with installing Node packages, just run this in your terminal:
+
+```bash
+npm install fernwell
+```
+
+For those that aren't using Node and just want to add to their HTML / CSS / JS Browser application, simply use the following HTML to download via a CDN:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/fernwell/dist/fernwell.min.css">
+```
+
+If you want to utilize the component behaviors that power things like modals, popovers, tables you will also want to include our JS initialization script:
+
+```html
+<script src="https://unpkg.com/fernwell/dist/fernwell.iife.js"></script>
+```
+
+Both can be added to the head of your HTML document.
+
+## How it works
+
+Once installed, Fernwell uses a series of tokens (not the AI kind) that provide styling specifications to your application.  These tokens provide values that give Fernwell it's unique look and feel.  Think colors, fonts, pixels values, and CSS properties and keyword.  Along with this are CSS blocks and JavaScript modules that power the Fernwell components.
+
+Everything is opt-in so there is nothing that will magically happen without some quick and simple configuration.  For the styles you will need to add classes to your HTML markup:
+
+```html
+<div class="fw-table-wrap">
+  <div class="fw-table-scroll" tabindex="0" role="region" aria-labelledby="inv-cap">
+    <table class="fw-table fw-table-striped" data-fw-table>
+      <caption id="inv-cap">Invoices</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="fw-table-select">
+            <label class="fw-checkbox">
+              <input type="checkbox" data-fw-select-all>
+              <span class="fw-box"></span>
+              <span class="fw-sr-only">Select all rows</span>
+            </label>
+          </th>
+          <th scope="col" aria-sort="none" data-fw-sort>
+            <button type="button" class="fw-table-sort">Client</button>
+          </th>
+          <th scope="col" class="fw-table-num" aria-sort="none" data-fw-sort><button type="button" class="fw-table-sort">Amount</button></th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="fw-table-select">
+            <label class="fw-checkbox">
+              <input type="checkbox" data-fw-select-row>
+              <span class="fw-box"></span>
+              <span class="fw-sr-only">Select Bright Path</span>
+            </label>
+          </td>
+          <td>Bright Path</td>
+          <td class="fw-table-num" data-fw-sort-value="1250">$1,250.00</td>
+          <td><span class="fw-tag fw-tag-pill fw-tag-live">Paid</span></td>
+        </tr>
+        <!-- Add more rows as necessary -->
+      </tbody>
+    </table>
+  </div>
+</div>
+```
+
+A quick breakdown of what's doing the work in that markup:
+
+- `data-fw-table` marks the table root so Fernwell's behavior knows to bind to it.
+- `data-fw-sort` on a `<th>` turns that column into a sort trigger — clicking (or pressing Enter/Space) cycles `aria-sort` through none → ascending → descending and reorders the rows.
+- `data-fw-sort-value` on a `<td>` overrides that cell's text for comparison, which is how numbers and dates sort correctly instead of alphabetically. Every row needs its own correct value here — a copy-pasted value across rows is a real bug we hit while writing this table, and one worth watching for in your own markup.
+- `data-fw-select-all` / `data-fw-select-row` wire up the header and row checkboxes, keeping the "select all" checkbox in sync (checked, unchecked, or indeterminate) as rows are picked.
+
+For the interactive elements, you will need to trigger the necessary methods on the Global Fernwell object:
+
+```html
+<script src="https://unpkg.com/fernwell/dist/fernwell.iife.js"></script>
+<script>
+  Fernwell.init();
+</script>
+```
+
+Or from an ES module:
+
+```js
+import { init } from 'fernwell';
+
+init();
+```
+
+`init()` scans the page once for any `table[data-fw-table]` and binds click, keyboard, and checkbox behavior to it — it's safe to call again later (say, after rendering new rows), since already-bound tables are skipped. From there everything is automatic: no further method calls are needed to make sorting or selection work.
+
+If you want to react to what the user does, listen for the two events the table dispatches (they bubble, so a listener on `document` catches every table on the page):
+
+```js
+table.addEventListener('fw:sort', (e) => {
+  console.log(e.detail.column, e.detail.direction); // e.g. 1, 'ascending'
+});
+
+table.addEventListener('fw:select', (e) => {
+  console.log(e.detail.rows, e.detail.all); // selected <tr> elements
+});
+```
+
+This provides us with an interactive table that can be made fully interactive client side:
+
+<div class="fw-table-wrap">
+  <div class="fw-table-scroll" tabindex="0" role="region" aria-labelledby="inv-cap">
+    <table class="fw-table fw-table-striped" data-fw-table>
+      <caption id="inv-cap">Invoices</caption>
+      <thead><tr>
+        <th scope="col" class="fw-table-select">
+          <label class="fw-checkbox">
+            <input type="checkbox" data-fw-select-all></input>
+            <span class="fw-box"></span>
+            <span class="fw-sr-only">Select all rows</span>
+          </label>
+        </th>
+        <th scope="col" aria-sort="none" data-fw-sort><button type="button" class="fw-table-sort">Client</button></th>
+        <th scope="col" class="fw-table-num" aria-sort="none" data-fw-sort><button type="button" class="fw-table-sort">Amount</button></th>
+        <th scope="col">Status</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="fw-table-select">
+            <label class="fw-checkbox">
+              <input type="checkbox" data-fw-select-row></input>
+              <span class="fw-box"></span>
+              <span class="fw-sr-only">Select Bright Path</span>
+            </label>
+          </td>
+          <td>Bright Path</td>
+          <td class="fw-table-num" data-fw-sort-value="1250">$1,250.00</td>
+          <td><span class="fw-tag fw-tag-pill fw-tag-live">Paid</span></td>
+        </tr>
+        <tr>
+          <td class="fw-table-select">
+            <label class="fw-checkbox">
+              <input type="checkbox" data-fw-select-row></input>
+              <span class="fw-box"></span>
+              <span class="fw-sr-only">Select Maple Co.</span>
+            </label>
+          </td>
+          <td>Maple & Co.</td>
+          <td class="fw-table-num" data-fw-sort-value="980">$980.00</td>
+          <td><span class="fw-tag fw-tag-pill fw-tag-pending">Pending</span></td>
+        </tr>
+        <tr>
+          <td class="fw-table-select">
+            <label class="fw-checkbox">
+              <input type="checkbox" data-fw-select-row></input>
+              <span class="fw-box"></span>
+              <span class="fw-sr-only">Select Harbor Dental</span>
+            </label>
+          </td>
+          <td>Harbor Dental</td>
+          <td class="fw-table-num" data-fw-sort-value="3450">$3,450.00</td>
+          <td><span class="fw-tag fw-tag-pill fw-tag-error">Overdue</span></td>
+        </tr>
+        <tr>
+          <td class="fw-table-select">
+            <label class="fw-checkbox">
+              <input type="checkbox" data-fw-select-row></input>
+              <span class="fw-box"></span>
+              <span class="fw-sr-only">Select Jupiter Studio</span>
+            </label>
+          </td>
+          <td>Jupiter Studio</td>
+          <td class="fw-table-num" data-fw-sort-value="640">$640.00</td>
+          <td><span class="fw-tag fw-tag-pill fw-tag-secondary">Draft</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+## Fernwell is open source and welcomes contributions
+
+This is just the beginning of the journey for Fernwell, so stay tuned as development progresses.  We will be adding features and making adjustments as the browser eco-system changes.
+
+We are open to contributors!  If you feel there is a way to make Fernwell better we are happy to here from you.  Create an issue or open a PR and we accept any contributions that we feel enhance the library.

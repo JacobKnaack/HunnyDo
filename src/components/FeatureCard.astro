@@ -9,7 +9,7 @@ const { icon, title, description } = Astro.props;
 ---
 
 <div class="feature-card">
-  <div class="feature-icon">{icon}</div>
+  <div class="feature-icon"><span class="fw-icon" data-fw-icon={icon} aria-hidden="true"></span></div>
   <h3>{title}</h3>
   <p>{description}</p>
 </div>

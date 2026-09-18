@@ -12,10 +12,10 @@ import type { ImageMetadata } from 'astro';
 export type Category = 'guides' | 'product' | 'case' | 'freelance';
 
 export const CATEGORY_META: Record<Category, { label: string; filterLabel: string; tagClass: string; accent: string }> = {
-  guides: { label: 'Guides', filterLabel: 'Guides', tagClass: 'tag-guides', accent: 'var(--sky)' },
-  product: { label: 'Product updates', filterLabel: 'Product updates', tagClass: 'tag-product', accent: 'var(--meadow)' },
-  case: { label: 'Case study', filterLabel: 'Case studies', tagClass: 'tag-case', accent: 'var(--plum)' },
-  freelance: { label: 'Freelancing', filterLabel: 'Freelancing', tagClass: 'tag-freelance', accent: 'var(--marigold-dk)' },
+  guides: { label: 'Guides', filterLabel: 'Guides', tagClass: 'tag-guides', accent: 'var(--fw-info)' },
+  product: { label: 'Product updates', filterLabel: 'Product updates', tagClass: 'tag-product', accent: 'var(--fw-success)' },
+  case: { label: 'Case study', filterLabel: 'Case studies', tagClass: 'tag-case', accent: 'var(--fw-secondary)' },
+  freelance: { label: 'Freelancing', filterLabel: 'Freelancing', tagClass: 'tag-freelance', accent: 'var(--fw-warning)' },
 };
 
 export interface PostSummary {

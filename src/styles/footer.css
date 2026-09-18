@@ -1,9 +1,7 @@
 .hd-footer {
-  --line: rgba(255, 255, 255, 0.12);
-  --soft: rgba(255, 255, 255, 0.62);
-  font-family: var(--font-body);
-  background: var(--plum);
-  color: var(--white);
+  font-family: var(--fw-font-body);
+  background: var(--fw-secondary);
+  color: var(--fw-on-secondary);
 }
 .hd-footer * {
   box-sizing: border-box;
@@ -35,19 +33,19 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
+  font-family: var(--fw-font-display);
   font-weight: 800;
   font-size: 18px;
 }
 .hd-footer-logo .a {
-  color: var(--white);
+  color: var(--fw-on-secondary);
 }
 .hd-footer-logo .do {
-  color: var(--marigold);
+  color: var(--fw-primary);
 }
 .hd-footer-tagline {
   font-size: 14px;
-  color: var(--soft);
+  color: var(--fw-on-secondary-soft);
   max-width: 26ch;
   line-height: 1.5;
 }
@@ -62,7 +60,7 @@
   height: 34px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.08);
-  border: 1.5px solid var(--line);
+  border: 1.5px solid var(--fw-on-secondary-line);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,12 +76,12 @@
 }
 
 .hd-footer-col h4 {
-  font-family: var(--font-mono);
+  font-family: var(--fw-font-mono);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--soft);
+  color: var(--fw-on-secondary-soft);
   margin: 0 0 16px;
 }
 .hd-footer-col ul {
@@ -97,14 +95,14 @@
 .hd-footer-col a {
   font-size: 14px;
   font-weight: 500;
-  color: var(--white);
+  color: var(--fw-on-secondary);
   display: inline-flex;
   align-items: center;
   gap: 6px;
   transition: color .12s ease;
 }
 .hd-footer-col a:hover {
-  color: var(--marigold);
+  color: var(--fw-primary);
 }
 
 /* ---- bottom bar ---- */
@@ -115,9 +113,9 @@
   flex-wrap: wrap;
   gap: 16px;
   padding-top: 28px;
-  border-top: 1.5px solid var(--line);
+  border-top: 1.5px solid var(--fw-on-secondary-line);
   font-size: 13px;
-  color: var(--soft);
+  color: var(--fw-on-secondary-soft);
 }
 .hd-footer-legal {
   display: flex;
@@ -125,11 +123,11 @@
   flex-wrap: wrap;
 }
 .hd-footer-legal a {
-  color: var(--soft);
+  color: var(--fw-on-secondary-soft);
   font-size: 13px;
 }
 .hd-footer-legal a:hover {
-  color: var(--white);
+  color: var(--fw-on-secondary);
 }
 
 /* ---- responsive ---- */
