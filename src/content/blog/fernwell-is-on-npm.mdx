@@ -9,7 +9,7 @@ featured: true
 coverImage: ../../assets/blog/fernwell-is-on-npm/hero.png
 ---
 
-We are happy to announce that Fernwell is now available as a stand alone library that can added to any web application that runs in the Browser.  This was a goal from the very start of the project, and we are thrilled that anyone can use Fernwell to design and build high performant, accessible interfaces easily from NPM the unpkg CDN.
+We are happy to announce that Fernwell is now available as a stand alone library that can be added to any web application that runs in the Browser.  This was a goal from the very start of the project, and we are thrilled that anyone can use Fernwell to design and build high performance, accessible interfaces easily with a quick install using NPM or UNPKG.
 
 ## Installing and using Fernwell
 
@@ -104,7 +104,7 @@ import { init } from 'fernwell';
 init();
 ```
 
-`init()` scans the page once for any `table[data-fw-table]` and binds click, keyboard, and checkbox behavior to it — it's safe to call again later (say, after rendering new rows), since already-bound tables are skipped. From there everything is automatic: no further method calls are needed to make sorting or selection work.
+`init()` scans the page once for any `table[data-fw-table]` and binds click, keyboard, and checkbox behavior to it - it's safe to call again later (say, after rendering new rows), since already-bound tables are skipped. From there everything is automatic: no further method calls are needed to make sorting or selection work.
 
 If you want to react to what the user does, listen for the two events the table dispatches (they bubble, so a listener on `document` catches every table on the page):
 
