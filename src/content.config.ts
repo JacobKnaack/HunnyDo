@@ -9,7 +9,7 @@ const blog = defineCollection({
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     author: z.string().default('HunnyDo'),
-    category: z.enum(['guides', 'product', 'case', 'freelance']),
+    category: z.enum(['guides', 'product', 'case', 'freelance', 'security']),
     featured: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),

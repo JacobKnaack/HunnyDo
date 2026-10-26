@@ -9,13 +9,14 @@ import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { MarkdownHeading } from 'astro';
 import type { ImageMetadata } from 'astro';
 
-export type Category = 'guides' | 'product' | 'case' | 'freelance';
+export type Category = 'guides' | 'product' | 'case' | 'freelance' | 'security';
 
 export const CATEGORY_META: Record<Category, { label: string; filterLabel: string; tagClass: string; accent: string }> = {
   guides: { label: 'Guides', filterLabel: 'Guides', tagClass: 'tag-guides', accent: 'var(--fw-info)' },
   product: { label: 'Product updates', filterLabel: 'Product updates', tagClass: 'tag-product', accent: 'var(--fw-success)' },
   case: { label: 'Case study', filterLabel: 'Case studies', tagClass: 'tag-case', accent: 'var(--fw-secondary)' },
   freelance: { label: 'Freelancing', filterLabel: 'Freelancing', tagClass: 'tag-freelance', accent: 'var(--fw-warning)' },
+  security: { label: 'Security', filterLabel: 'Security', tagClass: 'tag-security', accent: 'var(--fw-danger)' },
 };
 
 export interface PostSummary {

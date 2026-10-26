@@ -1,0 +1,148 @@
+---
+title: Addressing Recent Security Advisories
+description: HunnyDo systems have been updated to address recent published security advisories for multiple parts of our platform.
+date: 2026-10-25
+author: Jacob Knaack
+category: security
+tags: [security]
+featured: true
+coverImage: ../../assets/blog/addressing-recent-security-advisories/cover.png
+---
+
+In the last week there have been a growing number of security vulnerabilities discovered in key technologies across the web development ecosystem.  Some of which are used on the HunnyDo platform.
+
+Between October 15 and October 25 we have patched every HunnyDo component affected by these issues.  The most affected are our Node.js ecosystem: our runtime, our HTTP tooling, file-uploading, and the build and test tooling we use to ship the app.  While the issues have been fixed, new advisories are alway a possibility and we are committed to addressing these as soon as possible.
+
+## The Node.js runtime upgraded to 22.23.4
+
+On October 21, Node.js published version [22.23.4 (LTS)](https://nodejs.org/en/blog/release/v22.23.4), a release fixing six CVEs in the runtime.  Once discovered we promptly patched and redeployed our environment.
+
+<div class="fw-table-wrap">
+  <div class="fw-table-scroll" tabindex="0" role="region" aria-labelledby="cve-cap">
+    <table class="fw-table fw-table-striped">
+      <caption id="cve-cap" class="fw-sr-only">Node.js 22.23.4 CVEs</caption>
+      <thead>
+        <tr>
+          <th scope="col">CVE</th>
+          <th scope="col">Severity</th>
+          <th scope="col">What it fixes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CVE-2026-106069, CVE-2026-106072</td>
+          <td>High</td>
+          <td>TLS now rejects non-canonical IP addresses</td>
+        </tr>
+        <tr>
+          <td>CVE-2026-105482</td>
+          <td>High</td>
+          <td>DNS lookups reject inputs containing null bytes</td>
+        </tr>
+        <tr>
+          <td>CVE-2026-111497</td>
+          <td>High</td>
+          <td>A flaw in the bundled Brotli compression library</td>
+        </tr>
+        <tr>
+          <td>CVE-2026-105481</td>
+          <td>Medium</td>
+          <td>A data guard in the HTTP agent</td>
+        </tr>
+        <tr>
+          <td>CVE-2026-106074</td>
+          <td>Medium</td>
+          <td>Random-number caches carried across startup snapshots</td>
+        </tr>
+        <tr>
+          <td>CVE-2026-106073</td>
+          <td>Low</td>
+          <td>A permission-model check in file path resolution</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+### Patched request and upload handling in the API
+
+The API is the service that stores your checklists, sends reminders and accepts client uploads. Two dependency updates, on October 15 and October 19, cleared every advisory open against it at the time. The ones that matter most run in production and handle incoming requests.
+
+<div class="fw-table-wrap">
+  <div class="fw-table-scroll" tabindex="0" role="region" aria-labelledby="pkg-cap">
+    <table class="fw-table fw-table-striped">
+      <caption id="pkg-cap" class="fw-sr-only">API dependency advisories</caption>
+      <thead>
+        <tr>
+          <th scope="col">Package</th>
+          <th scope="col">Worst severity</th>
+          <th scope="col">The issue</th>
+          <th scope="col">Fixed in</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>proxy-addr</td>
+          <td>Critical</td>
+          <td>A client could spoof its IP address through an IPv4-mapped IPv6 address, which matters for rate limiting</td>
+          <td>2.0.8</td>
+        </tr>
+        <tr>
+          <td>multer</td>
+          <td>High</td>
+          <td>Five upload-handling bugs: crafted field names, aborted uploads and a size-limit race could exhaust the server</td>
+          <td>2.4.0</td>
+        </tr>
+        <tr>
+          <td>body-parser</td>
+          <td>high</td>
+          <td>A gzip-compressed request with extra bytes on the end could crash the server</td>
+          <td>2.4.0</td>
+        </tr>
+        <tr>
+          <td>qs</td>
+          <td>Moderate</td>
+          <td>Query-string parsing could be pushed past its limits</td>
+          <td>6.16.1</td>
+        </tr>
+        <tr>
+          <td>csv-parse</td>
+          <td>Moderate</td>
+          <td>A prototype-pollution path when parsing CSV imports</td>
+          <td>7.0.3</td>
+        </tr>
+        <tr>
+          <td>ip-address</td>
+          <td>Moderate</td>
+          <td>Five bugs in IP classification and subnet checks, including slow parsing of long inputs</td>
+          <td>10.7.4</td>
+        </tr>
+        <tr>
+          <td>express</td>
+          <td>Moderate</td>
+          <td>Patched request-handling stack</td>
+          <td>5.3.0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+The remaining advisories affected tools we use to build and test HunnyDo, not the running service: the Vite build tool, the Vitest test runner, PostCSS, nanoid, source-map-js and brace-expansion. We updated them anyway (Vite to 8.3.4, Vitest to 4.1.12) because a compromised developer machine or build is a real path into production. We also refreshed the AWS SDK, Stripe, Postgres and Google sign-in libraries to their current releases.
+
+Earlier in the month we also removed vite-plugin-html, a build plugin we no longer needed, along with more than 40 packages it pulled in. The fewer packages we ship with, the fewer we have to watch. A fresh audit of the web app now reports no known vulnerabilities.
+
+## What this means for you
+
+You don't need to do anything. Most of these bugs would have let an attacker slow down or crash a server, not read your data. The issue with the clearest data angle, IP spoofing in proxy-addr, would at worst have let someone dodge our rate limits. We reviewed our logs for the affected period and found no sign that any of these issues was exploited against HunnyDo.
+
+Your checklists, uploaded documents and client links were never exposed by these vulnerabilities, and you don't need to change your password.
+
+## What we're doing next
+
+We'll keep posting here whenever a fix affects HunnyDo. In the meantime, every HunnyDo account now has a dedicated [support page](https://app.hunnydo.cloud/support).  Use this to contact us regarding any questions or concerns you may have regarding your Checklists or account information stored on our system.
+
+## Sources
+
+* [Node.js 22.23.4 (LTS) release notes](https://nodejs.org/en/blog/release/v22.23.4)
+* [GitHub Advisory Database](https://github.com/advisories), for each GHSA linked above

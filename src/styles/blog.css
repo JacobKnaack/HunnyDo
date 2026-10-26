@@ -28,6 +28,8 @@
 .tag-case::before { background: var(--fw-secondary); }
 .tag-freelance { background: var(--fw-warning-bg); color: var(--fw-warning); }
 .tag-freelance::before { background: var(--fw-warning); }
+.tag-security { background: var(--fw-danger-bg); color: var(--fw-danger); }
+.tag-security::before { background: var(--fw-danger); }
 
 .avatar {
   width: 28px;

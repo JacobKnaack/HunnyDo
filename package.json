@@ -13,7 +13,7 @@
   "dependencies": {
     "@astrojs/mdx": "^7.0.5",
     "astro": "^7.1.4",
-    "fernwell": "^0.4.0"
+    "fernwell": "^0.6.1"
   },
   "engines": {
     "node": ">=18.20.8"
