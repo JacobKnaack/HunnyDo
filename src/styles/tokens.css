@@ -21,6 +21,17 @@ body {
   z-index: 100;
 }
 
+/* fernwell collapses the nav at 600px, but with five links plus the theme
+   toggle and CTA the bar is already cramped well before that. */
+@media (max-width: 960px) {
+  .nav-wrap .fw-nav-links {
+    display: none;
+  }
+  .nav-wrap .fw-nav-toggle {
+    display: flex;
+  }
+}
+
 section {
   padding: var(--fw-sp-9) 0;
 }
