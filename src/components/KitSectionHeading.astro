@@ -7,4 +7,7 @@ interface Props {
 const { title, num } = Astro.props;
 ---
 
-<div class="kit-sec-head"><h2>{title}</h2><span class="num">{num}</span></div>
+<div class="kit-sec-head">
+  <h2 set:html={title}/>
+  <span class="num">{num}</span>
+</div>
