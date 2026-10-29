@@ -1,14 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
 import KitSectionHeading from '../components/KitSectionHeading.astro';
 import Swatch from '../components/Swatch.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/fernwell.css';
 
+const navLinks = [
+  { href: "/#usecases", label: "Who it's for" },
+  { href: "/#features", label: "Features" },
+  { href: "/#how-it-works", label: "How it works" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/blog.html", label: "Blog" },
+];
+
 const CITIES = ['Seattle', 'San Francisco', 'Portland', 'Denver', 'Austin', 'Chicago', 'Minneapolis', 'Salt Lake City', 'Boston', 'Miami'];
 ---
 
 <BaseLayout title="Fernwell — UI Design Language" description="The Fernwell design language behind HunnyDo's product UI — color, type, shape, components, motion, and voice.">
+<Nav links={navLinks} ctaHref="https://app.hunnydo.cloud" ctaLabel="Start free" />
 <div class="kit-wrap">
 
   <div class="intro">

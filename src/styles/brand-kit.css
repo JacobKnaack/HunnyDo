@@ -79,16 +79,16 @@ code {
   min-height: 200px;
 }
 .stage-light {
-  background: var(--fw-surface);
+  background: #FFFFFF;
 }
 .stage-cloud {
-  background: var(--fw-bg-dim);
+  background: #EAEBE4;
 }
 .stage-plum {
   background: var(--fw-secondary);
 }
 .stage-ink {
-  background: var(--fw-text);
+  background: #1F2430;
 }
 .stage-label {
   font-family: var(--fw-font-mono);
