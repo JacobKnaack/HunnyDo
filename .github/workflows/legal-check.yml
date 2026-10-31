@@ -1,0 +1,34 @@
+name: Check legal documents
+
+# A change to the Terms or the Privacy Policy only notifies users if its version in src/legal.json is bumped. See "Legal
+# documents" in the README.
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  legal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v7
+        with:
+          # The base branch is needed to see what the pull request changes.
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Run the script tests
+        run: node --test scripts/*.test.mjs
+      - name: Check src/legal.json
+        run: node scripts/publish-legal.mjs --dry-run
+      - name: Check that edited legal pages have a new version
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: node scripts/check-legal-bump.mjs "origin/$BASE_REF"

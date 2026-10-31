@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/legal.css';
+import { lastUpdated } from '../lib/legal';
 
 const navLinks = [
   { href: "/#usecases", label: "Who it's for" },
@@ -50,7 +51,7 @@ const toc = [
     <header class="legal-header">
       <span class="eyebrow">Legal</span>
       <h1>Terms of Service</h1>
-      <p class="updated"><strong>Last updated</strong> October 29, 2026</p>
+      <p class="updated"><strong>Last updated</strong> {lastUpdated('terms')}</p>
     </header>
 
     <section class="legal-section" aria-labelledby="agreement">

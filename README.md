@@ -87,3 +87,29 @@ Deployed to **GitHub Pages** via `.github/workflows/deploy.yml`, which builds wi
 ## License
 
 © HunnyDo. All rights reserved.
+
+## Legal documents
+
+`/terms-and-conditions` and `/privacy` are the documents the HunnyDo app links to at signup. When one changes, the app shows its users a banner and emails them. That is driven by the version in [`src/legal.json`](src/legal.json), which is also what each page's "Last updated" line reads, so the date a visitor sees and the version the API knows can't drift.
+
+**To publish a change:**
+
+1. Edit the page.
+2. Bump that document's `version` in `src/legal.json` (a date, `2026-11-01`; a second revision the same day is `2026-11-01.2`). Optionally add a one-line `summary` of what changed (up to 500 characters): it goes in the banner and the email.
+3. Merge to `main`. After the deploy, the `notify-legal` job in [`deploy.yml`](.github/workflows/deploy.yml) runs `scripts/publish-legal.mjs`, which sends each document's version to the API's `POST /webhooks/legal-documents`, signed with a shared secret.
+
+Edits without a version bump notify nobody: the API records each version once and answers a repeat with 200 and does nothing. To keep that from happening by accident, the [`legal-check`](.github/workflows/legal-check.yml) workflow fails a pull request to `main` that edits `terms-and-conditions.astro` or `privacy.astro` without changing that document's `version`. Changes take effect when published, so the `effectiveAt` sent is the time of the request (set `effectiveAt` on an entry in `legal.json` to say otherwise).
+
+**One-time setup** (Settings → Secrets and variables → Actions):
+
+| | Name | Value |
+| --- | --- | --- |
+| Variable | `HUNNYDO_API_URL` | The API's origin, e.g. `https://api.example.com`. The job is skipped while this is unset. |
+| Secret | `LEGAL_DOCUMENTS_WEBHOOK_SECRET` | The same value as the API's `LEGAL_DOCUMENTS_WEBHOOK_SECRET`. |
+
+The first publish, before the API knows any version, is done from the **API repository** with its own `npm run legal:publish -- terms <version> --url <url> --effective <ISO time> [--notify]` (and for `privacy`); this repo's script takes only `--dry-run`. Use the same versions as `legal.json`, so the first deploy's webhook is a harmless repeat.
+
+```bash
+npm run legal:publish -- --dry-run   # print what would be sent
+npm test                             # the script's own tests
+```

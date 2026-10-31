@@ -25,6 +25,11 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v7
+      # Catch a bad src/legal.json or a broken publish script now, before the site goes live and notify-legal finds out.
+      - name: Check the legal document versions
+        run: |
+          node --test scripts/*.test.mjs
+          node scripts/publish-legal.mjs --dry-run
       - name: Install, build, and upload your site
         uses: withastro/action@v6
         # with:
@@ -45,3 +50,29 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  # Tells the HunnyDo API which versions of the Terms and Privacy Policy are live, so it can show users the
+  # "our terms changed" banner and email them. The API records a version once and ignores a repeat, so this is safe to run
+  # on every deploy; only a version bumped in src/legal.json notifies anyone. Skipped until HUNNYDO_API_URL is set as a
+  # repository variable, so deploys work before the webhook is live. See "Legal documents" in the README.
+  notify-legal:
+    needs: deploy
+    if: ${{ vars.HUNNYDO_API_URL != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Publish the legal document versions to the API
+        run: node scripts/publish-legal.mjs
+        env:
+          HUNNYDO_API_URL: ${{ vars.HUNNYDO_API_URL }}
+          LEGAL_DOCUMENTS_WEBHOOK_SECRET: ${{ secrets.LEGAL_DOCUMENTS_WEBHOOK_SECRET }}
