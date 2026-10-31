@@ -12,13 +12,15 @@ import { createHmac } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
+import { versionDate } from '../src/lib/legalVersion.mjs';
 
 const DOCUMENTS = ['terms', 'privacy'];
-// The API's own limits (src/lib/legalDocumentsWebhook.ts there), checked here so a mistake fails before any request.
-const VERSION_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/;
+// The API's own limit (src/lib/legalDocumentsWebhook.ts there), checked here so a mistake fails before any request.
+// Versions are held to a stricter shape than the API asks for (see versionDate): the site has to be able to show them.
 const MAX_SUMMARY = 500;
 const ATTEMPTS = 3;
-const RETRY_DELAY_MS = 2000;
+const RETRY_DELAY_MS = 5000;
+const REQUEST_TIMEOUT_MS = 10_000;
 
 /** hex HMAC-SHA256 of `${timestamp}.${rawBody}`: what the API recomputes to check the sender holds the secret. */
 export function sign(secret, timestamp, rawBody) {
@@ -36,8 +38,8 @@ export function buildPayloads(legal, now = new Date()) {
       throw new Error(`legal.json: ${document} ${problem}`);
     };
     if (!entry) fail('is missing');
-    if (typeof entry.version !== 'string' || !VERSION_PATTERN.test(entry.version)) {
-      fail(`needs a version like "2026-11-01" (letters, digits, ".", "_" or "-"), got ${JSON.stringify(entry.version)}`);
+    if (!versionDate(entry.version)) {
+      fail(`needs a version like "2026-11-01" or "2026-11-01.2" (a real date), got ${JSON.stringify(entry.version)}`);
     }
     if (typeof entry.url !== 'string' || !/^https:\/\//.test(entry.url)) fail('needs an https url');
     if (entry.summary !== undefined && (typeof entry.summary !== 'string' || entry.summary.length > MAX_SUMMARY)) {
@@ -78,6 +80,7 @@ export async function post(payload, { apiUrl, secret, fetchImpl = fetch, now = (
           'X-Hunnydo-Signature': sign(secret, timestamp, body),
         },
         body,
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       });
     } catch (err) {
       lastError = new Error(`${payload.document}: could not reach the API (${err.message})`);
@@ -98,7 +101,7 @@ export async function post(payload, { apiUrl, secret, fetchImpl = fetch, now = (
 
 const defaultSleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function main() {
+async function publishLegal() {
   const { values } = parseArgs({ options: { 'dry-run': { type: 'boolean', default: false } } });
   const legal = JSON.parse(await readFile(fileURLToPath(new URL('../src/legal.json', import.meta.url)), 'utf8'));
   const payloads = buildPayloads(legal);
@@ -114,7 +117,7 @@ async function main() {
     throw new Error('Set HUNNYDO_API_URL and LEGAL_DOCUMENTS_WEBHOOK_SECRET (or pass --dry-run).');
   }
 
-  let failed = false;
+  const failed = [];
   for (const payload of payloads) {
     try {
       const outcome = await post(payload, { apiUrl, secret });
@@ -124,15 +127,19 @@ async function main() {
           : `${payload.document} ${payload.version}: already recorded; nothing sent.`
       );
     } catch (err) {
-      failed = true;
+      failed.push(payload.document);
       console.error(err.message);
     }
   }
-  if (failed) process.exitCode = 1;
+  if (failed.length) {
+    // The other documents may already have notified users; a repeat is harmless, so re-running the job is the fix.
+    console.error(`Not published: ${failed.join(', ')}. Re-run the job; versions the API already has are skipped.`);
+    process.exitCode = 1;
+  }
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
-  main().catch((err) => {
+  publishLegal().catch((err) => {
     console.error(err.message);
     process.exitCode = 1;
   });

@@ -25,6 +25,11 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v7
+      # Catch a bad src/legal.json or a broken publish script now, before the site goes live and notify-legal finds out.
+      - name: Check the legal document versions
+        run: |
+          node --test scripts/*.test.mjs
+          node scripts/publish-legal.mjs --dry-run
       - name: Install, build, and upload your site
         uses: withastro/action@v6
         # with:
@@ -54,11 +59,18 @@ jobs:
     needs: deploy
     if: ${{ vars.HUNNYDO_API_URL != '' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: read
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
       - name: Publish the legal document versions to the API
         run: node scripts/publish-legal.mjs
         env:
