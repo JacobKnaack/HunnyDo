@@ -1,0 +1,81 @@
+---
+// One modal for every "contact us" link on the page (see lib/contact.mjs). The links open it; Send hands the visitor's
+// subject and message to their mail client.
+---
+
+<div class="fw-modal-overlay" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+  <div class="fw-modal">
+    <form class="fw-modal-scroll" id="contact-form">
+      <div class="fw-modal-head">
+        <div>
+          <h2 class="fw-modal-title" id="contact-modal-title">Send us a message</h2>
+          <p class="fw-modal-sub">This opens in your email app so you can review it before sending.</p>
+        </div>
+      </div>
+
+      <div class="fw-field fw-field-full">
+        <label class="fw-label" for="contact-subject">Subject</label>
+        <input class="fw-input" id="contact-subject" name="subject" type="text" required autocomplete="off" />
+      </div>
+      <div class="fw-field fw-field-full">
+        <label class="fw-label" for="contact-message">Message</label>
+        <textarea class="fw-input" id="contact-message" name="message" rows="6" required></textarea>
+      </div>
+
+      <div class="fw-modal-foot">
+        <button type="button" class="fw-btn fw-btn-ghost" data-fw-close-modal>Cancel</button>
+        <button type="submit" class="fw-btn fw-btn-primary" id="contact-send" disabled>Open email</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .fw-field + .fw-field {
+    margin-top: var(--fw-sp-4);
+  }
+  .fw-modal-foot {
+    margin-top: var(--fw-sp-5);
+  }
+</style>
+
+<script>
+  import { modal } from 'fernwell';
+  import { CONTACTS, buildMailto, defaultSubject, topicFromTitle } from '../lib/contact.mjs';
+
+  const MODAL_ID = 'contact-modal';
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const subject = document.getElementById('contact-subject') as HTMLInputElement;
+  const message = document.getElementById('contact-message') as HTMLTextAreaElement;
+  const send = document.getElementById('contact-send') as HTMLButtonElement;
+  let recipient = '';
+
+  const syncSend = () => {
+    send.disabled = !subject.value.trim() || !message.value.trim();
+  };
+  subject.addEventListener('input', syncSend);
+  message.addEventListener('input', syncSend);
+
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element).closest<HTMLElement>('[data-contact]');
+    // Let a modified click (open in new tab, etc.) fall through to the mailto fallback on the link.
+    if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey) return;
+    const kind = link.dataset.contact as keyof typeof CONTACTS;
+    if (!CONTACTS[kind]) return;
+
+    event.preventDefault();
+    recipient = CONTACTS[kind].email;
+    subject.value = defaultSubject(kind, link.dataset.contactTopic ?? topicFromTitle(document.title));
+    message.value = '';
+    syncSend();
+    modal.open(MODAL_ID);
+    message.focus();
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (send.disabled) return;
+    window.location.href = buildMailto({ to: recipient, subject: subject.value.trim(), message: message.value });
+    modal.close(MODAL_ID);
+  });
+</script>
