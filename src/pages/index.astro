@@ -1,22 +1,22 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Nav from '../components/Nav.astro';
-import Hero from '../components/Hero.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import UseCaseCard from '../components/UseCaseCard.astro';
-import FeatureCard from '../components/FeatureCard.astro';
-import ProductPreview from '../components/ProductPreview.astro';
-import Testimonial from '../components/Testimonial.astro';
-import PriceCard from '../components/PriceCard.astro';
-import FinalCTA from '../components/FinalCTA.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import UseCaseCard from "../components/UseCaseCard.astro";
+import FeatureCard from "../components/FeatureCard.astro";
+import ProductPreview from "../components/ProductPreview.astro";
+import Testimonial from "../components/Testimonial.astro";
+import PriceCard from "../components/PriceCard.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+import Footer from "../components/Footer.astro";
 
 const navLinks = [
-  { href: '#usecases', label: "Who it's for" },
-  { href: '#features', label: 'Features' },
-  { href: '#product', label: 'How it works' },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '/blog.html', label: 'Blog' },
+  { href: "#usecases", label: "Who it's for" },
+  { href: "#features", label: "Features" },
+  { href: "#product", label: "How it works" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "/blog.html", label: "Blog" },
 ];
 ---
 
@@ -25,22 +25,34 @@ const navLinks = [
   description="HunnyDo turns your to-do list into a checklist that follows up on its own. Assign items, set due dates, and let automatic reminders chase people down — for closing files, client onboarding, or the honey-do list at home."
   structuredData
 >
-  <Nav links={navLinks} ctaHref="#pricing" ctaLabel="Start free" />
+  <Nav
+    links={navLinks}
+    ctaHref="https://app.hunnydo.cloud"
+    ctaLabel="Start free"
+  />
 
   <Hero
     eyebrow="Checklists that chase people down"
     title="Get it done,"
     emphasis="hunny."
-    lede="Build a checklist of exactly what you need from someone else — documents, decisions, deposits — send it, and let HunnyDo do the nagging until every box is checked."
-    primaryCtaHref="#pricing"
+    lede="Build checklists of exactly what you need from someone else: documents, decisions, deposits.  Send it, and let HunnyDo do the nagging until every box is checked."
+    primaryCtaHref="https://app.hunnydo.cloud"
     primaryCtaLabel="Start free"
     secondaryCtaHref="#product"
     secondaryCtaLabel="See how it works"
     finePrint="No credit card required · free for individuals"
     stats={[
-      { value: '94', unit: '%', label: 'Checklists completed without a phone call' },
-      { value: '3.2K', unit: '+', label: 'Checklists sent this month' },
-      { value: '2.4', unit: 'avg', label: 'Reminders it takes to finish a task' },
+      {
+        value: "94",
+        unit: "%",
+        label: "Checklists completed without a phone call",
+      },
+      { value: "3.2K", unit: "+", label: "Checklists sent this month" },
+      {
+        value: "2.4",
+        unit: "avg",
+        label: "Reminders it takes to finish a task",
+      },
     ]}
   />
 
@@ -56,13 +68,23 @@ const navLinks = [
           variant="pro"
           title="For the professionals"
           description="Agencies, mortgage brokers, law firms, and realtors use HunnyDo to collect what they need from clients — without becoming a full-time follow-up service."
-          tags={['Client onboarding', 'Loan documents', 'Closing checklists', 'Signature requests']}
+          tags={[
+            "Client onboarding",
+            "Loan documents",
+            "Closing checklists",
+            "Signature requests",
+          ]}
         />
         <UseCaseCard
           variant="personal"
           title="For everyday life"
           description={'Trip-planning group chats, roommates splitting chores, and yes — the honey-do list for the boyfriend who\'s been "getting to it" for three weeks.'}
-          tags={['Trip planning', 'Honey-do list', 'Splitting the bill', 'One-off favors']}
+          tags={[
+            "Trip planning",
+            "Honey-do list",
+            "Splitting the bill",
+            "One-off favors",
+          ]}
         />
       </div>
     </div>
@@ -106,10 +128,26 @@ const navLinks = [
         subheading="Shared with Alex R. and Sam K. · 3 of 5 complete"
         progressPercent={60}
         rows={[
-          { title: 'Submit signed disclosure', assignee: 'Alex R.', status: 'done' },
-          { title: "Confirm homeowner's insurance", assignee: 'Sam K.', status: 'done' },
-          { title: 'Upload proof of funds', assignee: 'Alex R. · 3 reminders sent', status: 'waiting' },
-          { title: 'Confirm final walkthrough time', assignee: 'Sam K. · due yesterday', status: 'overdue' },
+          {
+            title: "Submit signed disclosure",
+            assignee: "Alex R.",
+            status: "done",
+          },
+          {
+            title: "Confirm homeowner's insurance",
+            assignee: "Sam K.",
+            status: "done",
+          },
+          {
+            title: "Upload proof of funds",
+            assignee: "Alex R. · 3 reminders sent",
+            status: "waiting",
+          },
+          {
+            title: "Confirm final walkthrough time",
+            assignee: "Sam K. · due yesterday",
+            status: "overdue",
+          },
         ]}
       />
     </div>
@@ -138,11 +176,11 @@ const navLinks = [
           period="/mo"
           description="For the honey-do list and the group trip."
           features={[
-            'Unlimited checklists',
-            'Automatic reminders',
-            'Unlimited team members',
-            'Contact lists',
-            ]}
+            "Unlimited checklists",
+            "Automatic reminders",
+            "Unlimited team members",
+            "Contact lists",
+          ]}
           ctaHref="https://app.hunnydo.cloud"
           ctaLabel="Start free"
           ctaVariant="ghost"
@@ -153,14 +191,14 @@ const navLinks = [
           period="/mo"
           description="For agents, brokers, and consultants."
           features={[
-            'Unlimited checklists',
-            'Automatic reminders',
-            'Unlimited team members',
-            'Contact lists',
-            'Project management',
-            'Reusable templates',
-            'Secure client links',
-            'Secure file sharing',
+            "Unlimited checklists",
+            "Automatic reminders",
+            "Unlimited team members",
+            "Contact lists",
+            "Project management",
+            "Reusable templates",
+            "Secure client links",
+            "Secure file sharing",
           ]}
           ctaHref="https://app.hunnydo.cloud"
           ctaLabel="Subscribe"
