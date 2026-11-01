@@ -12,6 +12,7 @@ import {
   CATEGORY_META,
 } from "../../lib/blog";
 import { blogPosting, breadcrumbList } from "../../lib/jsonld.mjs";
+import { contactAttrs } from "../../lib/contact.mjs";
 
 export async function getStaticPaths() {
   const posts = await getAllPosts();
@@ -156,7 +157,7 @@ const jsonLd = [
           <a
             class="icon-btn"
             aria-label="Share via email"
-            href={`mailto:jacobknck@gmail.com?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description)}%0A%0A`}
+            {...contactAttrs("support", title)}
           >
             <svg viewBox="0 0 16 16" fill="none"
               ><rect

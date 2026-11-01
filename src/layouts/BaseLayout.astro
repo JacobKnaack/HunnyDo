@@ -1,6 +1,7 @@
 ---
 import 'fernwell/css';
 import '../styles/global.css';
+import ContactModal from '../components/ContactModal.astro';
 import legal from '../legal.json';
 import { organization, renderJsonLd, staticPageSchemas, webSite } from '../lib/jsonld.mjs';
 import { DEFAULT_OG_IMAGE } from '../lib/site.mjs';
@@ -74,6 +75,7 @@ const structuredData = renderJsonLd([
 </head>
 <body class="fw-root">
 <slot />
+<ContactModal />
 <script>
   import { init } from 'fernwell';
   init();
