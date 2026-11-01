@@ -11,6 +11,7 @@ import {
   avatarInitials,
   CATEGORY_META,
 } from "../../lib/blog";
+import { blogPosting, breadcrumbList } from "../../lib/jsonld.mjs";
 
 export async function getStaticPaths() {
   const posts = await getAllPosts();
@@ -26,6 +27,7 @@ const {
   title,
   description,
   date,
+  updated,
   author,
   category,
   tags,
@@ -53,9 +55,36 @@ const navLinks = [
 // Page loads with no data-theme attribute (light), so giscus starts light too;
 // ThemeToggle posts a setConfig message to switch it when the user toggles.
 const customThemeUrl = `${Astro.url.origin}/assets/css/giscus-theme-light.css`;
+
+const postURL = new URL(Astro.url.pathname, Astro.site).href;
+const coverURL = coverImage ? new URL(coverImage.src, Astro.site).href : undefined;
+const jsonLd = [
+  blogPosting({
+    url: postURL,
+    headline: title,
+    description,
+    datePublished: date,
+    dateModified: updated,
+    author,
+    image: coverURL,
+    keywords: tags,
+  }),
+  breadcrumbList([
+    { name: "Blog", url: new URL("/blog.html", Astro.site).href },
+    { name: title, url: postURL },
+  ]),
+];
 ---
 
-<BaseLayout title={`${title} — HunnyDo Blog`} description={description}>
+<BaseLayout
+  title={`${title} — HunnyDo Blog`}
+  description={description}
+  ogImage={coverURL}
+  ogType="article"
+  publishedTime={date}
+  modifiedTime={updated ?? date}
+  jsonLd={jsonLd}
+>
   <Nav
     links={navLinks}
     ctaHref="https://app.hunnydo.cloud"

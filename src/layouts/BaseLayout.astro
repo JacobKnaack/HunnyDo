@@ -1,26 +1,43 @@
 ---
 import 'fernwell/css';
 import '../styles/global.css';
+import legal from '../legal.json';
+import { organization, renderJsonLd, staticPageSchemas, webSite } from '../lib/jsonld.mjs';
+import { DEFAULT_OG_IMAGE } from '../lib/site.mjs';
 
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
   noindex?: boolean;
-  structuredData?: boolean;
+  /** Extra schema.org nodes for pages with data of their own; the rest of the site's JSON-LD is added automatically. */
+  jsonLd?: object | object[];
 }
 
 const {
   title,
   description,
-  ogImage = '/og-image.png',
+  ogImage = DEFAULT_OG_IMAGE,
+  ogType = 'website',
+  publishedTime,
+  modifiedTime,
   noindex = false,
-  structuredData = false,
+  jsonLd = [],
 } = Astro.props;
 
 const pathname = Astro.url.pathname === '/index.html' ? '/' : Astro.url.pathname;
 const canonicalURL = new URL(pathname, Astro.site);
 const ogImageURL = new URL(ogImage, Astro.site);
+
+const structuredData = renderJsonLd([
+  organization(),
+  webSite(),
+  ...staticPageSchemas({ pathname, canonical: canonicalURL.href, title, description, legal }),
+  ...[jsonLd].flat(),
+]);
 ---
 
 <!DOCTYPE html>
@@ -39,7 +56,9 @@ const ogImageURL = new URL(ogImage, Astro.site);
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="/assets/images/favicon.ico">
 
-<meta property="og:type" content="website">
+<meta property="og:type" content={ogType}>
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()}>}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()}>}
 <meta property="og:url" content={canonicalURL}>
 <meta property="og:title" content={title}>
 <meta property="og:description" content={description}>
@@ -51,29 +70,7 @@ const ogImageURL = new URL(ogImage, Astro.site);
 <meta name="twitter:description" content={description}>
 <meta name="twitter:image" content={ogImageURL}>
 
-<script type="application/ld+json" is:inline set:html={JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'HunnyDo',
-  url: 'https://hunnydo.cloud/',
-  logo: 'https://hunnydo.cloud/logo.png',
-})} />
-
-{structuredData && (
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'HunnyDo',
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web',
-    url: 'https://hunnydo.cloud/',
-    description: 'HunnyDo is a checklist tool that automatically follows up until every item is checked off — used by realtors, mortgage brokers, and agencies to collect documents from clients, and by individuals for trip planning and household tasks.',
-    offers: [
-      { '@type': 'Offer', name: 'Personal', price: '0', priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Professional', price: '5', priceCurrency: 'USD', priceValidUntil: '2027-12-31' },
-    ],
-  })} />
-)}
+<script type="application/ld+json" is:inline set:html={structuredData} />
 </head>
 <body class="fw-root">
 <slot />
