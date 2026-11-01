@@ -10,6 +10,7 @@ import Testimonial from "../components/Testimonial.astro";
 import PriceCard from "../components/PriceCard.astro";
 import FinalCTA from "../components/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
+import { PLANS } from "../lib/plans.mjs";
 
 const navLinks = [
   { href: "#usecases", label: "Who it's for" },
@@ -169,41 +170,19 @@ const navLinks = [
         description="Every plan includes automatic reminders. No setup fees, cancel anytime."
       />
       <div class="price-grid">
-        <PriceCard
-          plan="Personal"
-          amount="$0"
-          period="/mo"
-          description="For the honey-do list and the group trip."
-          features={[
-            "Unlimited checklists",
-            "Automatic reminders",
-            "Unlimited team members",
-            "Contact lists",
-          ]}
-          ctaHref="https://app.hunnydo.cloud"
-          ctaLabel="Start free"
-          ctaVariant="ghost"
-        />
-        <PriceCard
-          plan="Professional"
-          amount="$5"
-          period="/mo"
-          description="For agents, brokers, and consultants."
-          features={[
-            "Unlimited checklists",
-            "Automatic reminders",
-            "Unlimited team members",
-            "Contact lists",
-            "Project management",
-            "Reusable templates",
-            "Secure client links",
-            "Secure file sharing",
-          ]}
-          ctaHref="https://app.hunnydo.cloud"
-          ctaLabel="Subscribe"
-          ctaVariant="primary"
-          featured
-        />
+        {PLANS.map((plan) => (
+          <PriceCard
+            plan={plan.name}
+            amount={`$${plan.price}`}
+            period="/mo"
+            description={plan.description}
+            features={plan.features}
+            ctaHref={plan.cta.href}
+            ctaLabel={plan.cta.label}
+            ctaVariant={plan.cta.variant}
+            featured={plan.featured}
+          />
+        ))}
       </div>
     </div>
   </section>

@@ -26,4 +26,5 @@ User-agent: *
 Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
+# LLM-readable site index (generated at build): https://hunnydo.cloud/llms.txt
 Sitemap: https://hunnydo.cloud/sitemap.xml

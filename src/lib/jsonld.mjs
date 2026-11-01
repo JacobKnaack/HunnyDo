@@ -6,6 +6,7 @@
 // post) build their nodes here and pass them to BaseLayout's `jsonLd` prop.
 
 import { versionDate } from './legalVersion.mjs';
+import { PLANS } from './plans.mjs';
 import { LOGO_URL, SITE_NAME, SITE_URL } from './site.mjs';
 
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
@@ -41,10 +42,13 @@ export function softwareApplication() {
     url: `${SITE_URL}/`,
     description:
       'HunnyDo is a checklist tool that automatically follows up until every item is checked off — used by realtors, mortgage brokers, and agencies to collect documents from clients, and by individuals for trip planning and household tasks.',
-    offers: [
-      { '@type': 'Offer', name: 'Personal', price: '0', priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Professional', price: '5', priceCurrency: 'USD', priceValidUntil: '2027-12-31' },
-    ],
+    offers: PLANS.map(({ name, price, priceValidUntil }) => ({
+      '@type': 'Offer',
+      name,
+      price: String(price),
+      priceCurrency: 'USD',
+      ...(priceValidUntil && { priceValidUntil }),
+    })),
   };
 }
 

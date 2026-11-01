@@ -4,6 +4,8 @@ When a new blog article is created, we need to make sure our meta data is up-to-
 
 * Updating our sitemap.xml file to include the new article.
 
+`/llms.txt` needs no edit: it is generated at build time from the published posts, and `npm run build` fails if it and `dist/` disagree.
+
 ## Updating Sitemap.xml
 
 for an article to be included in the sitemap.xml file, it must be added to the list of articles in the sitemap.  This is done by adding a new entry for the article in the sitemap.xml file.  The entry should include the following information:
