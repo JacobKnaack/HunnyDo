@@ -1,33 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core pages -->
   <url>
     <loc>https://hunnydo.cloud/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-10-25</lastmod>
   </url>
   <url>
+    <loc>https://hunnydo.cloud/blog.html</loc>
+    <lastmod>2026-10-25</lastmod>
+  </url>
+
+  <!-- Blog posts -->
+  <url>
+    <loc>https://hunnydo.cloud/blog/addressing-recent-security-advisories.html</loc>
+    <lastmod>2026-10-25</lastmod>
+  </url>
+  <url>
+    <loc>https://hunnydo.cloud/blog/fernwell-is-on-npm.html</loc>
+    <lastmod>2026-09-17</lastmod>
+  </url>
+  <url>
+    <loc>https://hunnydo.cloud/blog/saved-checklists-page.html</loc>
+    <lastmod>2026-09-08</lastmod>
+  </url>
+  <url>
+    <loc>https://hunnydo.cloud/blog/introducing-hunnydo-projects.html</loc>
+    <lastmod>2026-08-14</lastmod>
+  </url>
+  <url>
+    <loc>https://hunnydo.cloud/blog/building-fernwell-design-system.html</loc>
+    <lastmod>2026-07-27</lastmod>
+  </url>
+
+  <!-- Design -->
+  <url>
     <loc>https://hunnydo.cloud/brand-kit.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-07-27</lastmod>
   </url>
   <url>
     <loc>https://hunnydo.cloud/fernwell.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-09-17</lastmod>
   </url>
+
+  <!-- Legal -->
   <url>
     <loc>https://hunnydo.cloud/privacy.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <lastmod>2026-07-01</lastmod>
   </url>
   <url>
     <loc>https://hunnydo.cloud/terms-and-conditions.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://hunnydo.cloud/blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-01</lastmod>
   </url>
 </urlset>
