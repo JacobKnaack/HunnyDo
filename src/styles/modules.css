@@ -170,6 +170,48 @@
   color: var(--fw-text-soft);
 }
 
+/* ---- how it works steps ---- */
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--fw-sp-6);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--fw-sp-5);
+}
+
+@media(max-width:800px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+.step {
+  background: var(--fw-surface);
+  border-radius: var(--fw-r-lg);
+  border: 1.5px solid var(--fw-bg-dim);
+  box-shadow: var(--fw-shadow-sm);
+  padding: var(--fw-sp-5);
+}
+
+.step-num {
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--fw-sp-3);
+  background: var(--fw-primary);
+  color: var(--fw-on-primary);
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.step p {
+  font-size: 15px;
+  color: var(--fw-text-soft);
+}
+
 /* ---- product mock: checklist UI ---- */
 .product-frame {
   background: var(--fw-surface);

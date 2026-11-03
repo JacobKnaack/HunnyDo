@@ -123,6 +123,21 @@ const navLinks = [
         title="A checklist that follows up so you don't have to"
         description="Share it once. HunnyDo tracks every item and nags the right person automatically."
       />
+      <ol class="steps">
+        {
+          [
+            "Add contacts from your contacts list",
+            "Assign tasks and provide instructions",
+            "Let HunnyDo handle the notifications",
+            "Check back in once HunnyDo lets you know everything is done!",
+          ].map((step, i) => (
+            <li class="step">
+              <span class="step-num" aria-hidden="true">{i + 1}</span>
+              <p>{step}</p>
+            </li>
+          ))
+        }
+      </ol>
       <ProductPreview
         heading="Closing Checklist — 214 Birch Ln"
         subheading="Shared with Alex R. and Sam K. · 3 of 5 complete"
@@ -179,7 +194,7 @@ const navLinks = [
             features={plan.features}
             ctaHref={plan.cta.href}
             ctaLabel={plan.cta.label}
-            ctaVariant={plan.cta.variant}
+            ctaVariant={plan.cta.variant as "primary" | "ghost"}
             featured={plan.featured}
           />
         ))}
