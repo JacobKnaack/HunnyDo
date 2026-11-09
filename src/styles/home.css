@@ -1,0 +1,46 @@
+/* Home page shell: full-height sections, alternating bands, and scroll-snap.
+   Scoped to main.home so the global `section` / `.wrap` rules every other page relies on are untouched. */
+
+main.home > section {
+  min-height: clamp(720px, 100vh, 1000px);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: var(--fw-sp-9) 0;
+}
+
+main.home > section > .wrap {
+  width: 100%;
+}
+
+main.home > section.band {
+  background: var(--fw-surface);
+}
+
+main.home > section.cta {
+  background: var(--fw-secondary);
+}
+
+main.home > section.hero-sec {
+  padding: var(--fw-sp-8) 0 var(--fw-sp-7);
+}
+
+/* Snap is a nicety for big screens only; skipped on phones and for anyone who asked for less motion. */
+@media (min-width: 861px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  html:has(main.home) {
+    scroll-snap-type: y proximity;
+    /* sticky nav (.nav-wrap) sits at top: 24px and is ~64px tall */
+    scroll-padding-top: 96px;
+  }
+
+  main.home > section {
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 860px) {
+  main.home > section {
+    min-height: 0;
+    padding: var(--fw-sp-8) 0;
+  }
+}

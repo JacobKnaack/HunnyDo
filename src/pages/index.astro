@@ -5,12 +5,18 @@ import Hero from "../components/Hero.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import UseCaseCard from "../components/UseCaseCard.astro";
 import FeatureCard from "../components/FeatureCard.astro";
-import ProductPreview from "../components/ProductPreview.astro";
 import Testimonial from "../components/Testimonial.astro";
 import PriceCard from "../components/PriceCard.astro";
 import FinalCTA from "../components/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
 import { PLANS } from "../lib/plans.mjs";
+import OfficeArt from "../components/art/OfficeArt.astro";
+import HomeArt from "../components/art/HomeArt.astro";
+import BuildArt from "../components/art/BuildArt.astro";
+import RemindArt from "../components/art/RemindArt.astro";
+import TrackArt from "../components/art/TrackArt.astro";
+import RouteArt from "../components/art/RouteArt.astro";
+import ChecklistArt from "../components/art/ChecklistArt.astro";
 
 const navLinks = [
   { href: "#usecases", label: "Who it's for" },
@@ -31,11 +37,13 @@ const navLinks = [
     ctaLabel="Start free"
   />
 
+  <main class="home">
+  <section id="top" class="hero-sec">
   <Hero
     eyebrow="Checklists that chase people down"
     title="Get it done,"
     emphasis="hunny."
-    lede="Build checklists of exactly what you need from someone else: documents, decisions, deposits.  Send it, and let HunnyDo do the nagging until every box is checked."
+    lead="Build checklists of exactly what you need from someone else: documents, decisions, deposits.  Send it, and let HunnyDo do the nagging until every box is checked."
     primaryCtaHref="https://app.hunnydo.cloud"
     primaryCtaLabel="Start free"
     secondaryCtaHref="#product"
@@ -55,8 +63,9 @@ const navLinks = [
       },
     ]}
   />
+  </section>
 
-  <section id="usecases">
+  <section id="usecases" class="band">
     <div class="wrap">
       <SectionHeading
         eyebrow="Built for two very different Tuesdays"
@@ -74,7 +83,9 @@ const navLinks = [
             "Closing checklists",
             "Signature requests",
           ]}
-        />
+        >
+          <OfficeArt slot="art" />
+        </UseCaseCard>
         <UseCaseCard
           variant="personal"
           title="For everyday life"
@@ -85,7 +96,9 @@ const navLinks = [
             "Splitting the bill",
             "One-off favors",
           ]}
-        />
+        >
+          <HomeArt slot="art" />
+        </UseCaseCard>
       </div>
     </div>
   </section>
@@ -99,77 +112,54 @@ const navLinks = [
       />
       <div class="feature-grid">
         <FeatureCard
-          icon="check"
           title="Build a checklist in minutes"
           description="List out exactly what you need — documents, signatures, decisions — assign each item to a person, and set a due date."
-        />
+        >
+          <BuildArt slot="art" />
+        </FeatureCard>
         <FeatureCard
-          icon="bell"
           title="Reminders that actually work"
           description={'HunnyDo follows up automatically until each item is checked off, so you don\'t have to send "hey, did you..." a fifth time.'}
-        />
+        >
+          <RemindArt slot="art" />
+        </FeatureCard>
         <FeatureCard
-          icon="eye"
           title="See who's holding things up"
           description="One dashboard shows what's done, what's pending, and exactly who's dragging their feet — no chasing down the answer yourself."
-        />
+        >
+          <TrackArt slot="art" />
+        </FeatureCard>
       </div>
     </div>
   </section>
 
-  <section id="product">
+  <section id="product" class="band">
     <div class="wrap">
       <SectionHeading
         title="A checklist that follows up so you don't have to"
         description="Share it once. HunnyDo tracks every item and nags the right person automatically."
       />
+      <div class="route-art"><RouteArt /></div>
       <ol class="steps">
         {
           [
-            "Add contacts from your contacts list",
-            "Assign tasks and provide instructions",
+            "Select an assignee from your contacts list",
+            "Configure tasks and provide instructions",
             "Let HunnyDo handle the notifications",
-            "Check back in once HunnyDo lets you know everything is done!",
-          ].map((step, i) => (
+            "Check back once HunnyDo lets you know everything is done!",
+          ].map((step) => (
             <li class="step">
-              <span class="step-num" aria-hidden="true">{i + 1}</span>
               <p>{step}</p>
             </li>
           ))
         }
       </ol>
-      <ProductPreview
-        heading="Closing Checklist — 214 Birch Ln"
-        subheading="Shared with Alex R. and Sam K. · 3 of 5 complete"
-        progressPercent={60}
-        rows={[
-          {
-            title: "Submit signed disclosure",
-            assignee: "Alex R.",
-            status: "done",
-          },
-          {
-            title: "Confirm homeowner's insurance",
-            assignee: "Sam K.",
-            status: "done",
-          },
-          {
-            title: "Upload proof of funds",
-            assignee: "Alex R. · 3 reminders sent",
-            status: "waiting",
-          },
-          {
-            title: "Confirm final walkthrough time",
-            assignee: "Sam K. · due yesterday",
-            status: "overdue",
-          },
-        ]}
-      />
     </div>
   </section>
 
   <section>
-    <div class="wrap">
+    <div class="wrap product-split">
+      <div class="product-art"><ChecklistArt /></div>
       <Testimonial
         quote="HunnyDo chases my clients so I don't have to. My files close almost twice as fast."
         citation="Some Guy. · Hopefully, with some company"
@@ -177,7 +167,7 @@ const navLinks = [
     </div>
   </section>
 
-  <section id="pricing">
+  <section id="pricing" class="band">
     <div class="wrap">
       <SectionHeading
         eyebrow="Pricing"
@@ -202,7 +192,7 @@ const navLinks = [
     </div>
   </section>
 
-  <section>
+  <section class="cta">
     <div class="wrap">
       <FinalCTA
         title="Ready to stop asking twice?"
@@ -212,6 +202,11 @@ const navLinks = [
       />
     </div>
   </section>
+  </main>
 
   <Footer />
 </BaseLayout>
+
+<script>
+  import "../scripts/svg-motion";
+</script>

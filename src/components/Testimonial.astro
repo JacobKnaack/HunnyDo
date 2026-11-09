@@ -7,7 +7,11 @@ interface Props {
 const { quote, citation } = Astro.props;
 ---
 
-<div class="testimonial">
-  <blockquote>"{quote}"</blockquote>
-  <cite>{citation}</cite>
-</div>
+<figure class="testimonial">
+  <svg class="quote-mark" width="44" height="36" viewBox="0 0 44 36" aria-hidden="true"><path d="M2,34 L2,20 Q2,4 18,2 L18,10 Q10,12 10,20 L18,20 L18,34 Z M26,34 L26,20 Q26,4 42,2 L42,10 Q34,12 34,20 L42,20 L42,34 Z" fill="var(--fw-primary)"></path></svg>
+  <blockquote>{quote}</blockquote>
+  <figcaption>
+    <span class="avatar" aria-hidden="true">?</span>
+    <cite>{citation}</cite>
+  </figcaption>
+</figure>

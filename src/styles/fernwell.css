@@ -20,7 +20,7 @@
   line-height: 1.1;
   max-width: 14ch;
 }
-.intro p.lede {
+.intro p.lead {
   font-size: 18px;
   color: var(--fw-text-soft);
   max-width: 56ch;
