@@ -1,6 +1,7 @@
 ---
 import Button from './Button.astro';
 import StatStrip from './StatStrip.astro';
+import HiveArt from './art/HiveArt.astro';
 
 interface Stat {
   value: string;
@@ -12,7 +13,7 @@ interface Props {
   eyebrow: string;
   title: string;
   emphasis: string;
-  lede: string;
+  lead: string;
   primaryCtaHref: string;
   primaryCtaLabel: string;
   secondaryCtaHref: string;
@@ -25,7 +26,7 @@ const {
   eyebrow,
   title,
   emphasis,
-  lede,
+  lead,
   primaryCtaHref,
   primaryCtaLabel,
   secondaryCtaHref,
@@ -36,17 +37,22 @@ const {
 ---
 
 <div class="hero">
-  <div class="honeycomb-bg"></div>
-  <div class="wrap">
-    <div class="fw-eyebrow">{eyebrow}</div>
-    <h1>{title} <em>{emphasis}</em></h1>
-    <p class="lede">{lede}</p>
-    <div class="cta-row">
-      <Button href={primaryCtaHref} variant="primary">{primaryCtaLabel}</Button>
-      <Button href={secondaryCtaHref} variant="ghost">{secondaryCtaLabel}</Button>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="fw-eyebrow">{eyebrow}</div>
+      <h1>{title} <em>{emphasis}</em></h1>
+      <p class="lead">{lead}</p>
+      <div class="cta-row">
+        <Button href={primaryCtaHref} variant="primary">{primaryCtaLabel}</Button>
+        <Button href={secondaryCtaHref} variant="ghost">{secondaryCtaLabel}</Button>
+      </div>
+      <p class="fine">{finePrint}</p>
     </div>
-    <p class="fine">{finePrint}</p>
-
+    <div class="hero-art">
+      <HiveArt />
+    </div>
+  </div>
+  <div class="wrap">
     <StatStrip stats={stats} />
   </div>
 </div>

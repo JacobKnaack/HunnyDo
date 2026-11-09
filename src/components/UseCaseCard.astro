@@ -10,6 +10,7 @@ const { variant, title, description, tags } = Astro.props;
 ---
 
 <div class={`usecase-card ${variant}`}>
+  <div class="usecase-art"><slot name="art" /></div>
   <h3>{title}</h3>
   <p class="desc">{description}</p>
   <div class="usecase-tags">

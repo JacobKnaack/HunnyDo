@@ -63,7 +63,7 @@
 /* ================= blog hero + filters ================= */
 .blog-hero { max-width: 1160px; margin: 0 auto; padding: var(--fw-sp-8) var(--fw-sp-5) var(--fw-sp-6); }
 .blog-hero h1 { font-size: 46px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.08; max-width: 16ch; }
-.blog-hero p.lede { font-size: 18px; color: var(--fw-text-soft); max-width: 56ch; margin-top: var(--fw-sp-4); }
+.blog-hero p.lead { font-size: 18px; color: var(--fw-text-soft); max-width: 56ch; margin-top: var(--fw-sp-4); }
 
 .filters { max-width: 1160px; margin: 0 auto; padding: 0 var(--fw-sp-5); display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: var(--fw-sp-7); }
 .filter-pill {

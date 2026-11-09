@@ -1,5 +1,6 @@
 ---
 import Button from './Button.astro';
+import StampArt from './art/StampArt.astro';
 
 interface Props {
   title: string;
@@ -12,9 +13,12 @@ const { title, description, ctaHref, ctaLabel } = Astro.props;
 ---
 
 <div class="final-cta">
-  <h2>{title}</h2>
-  <p>{description}</p>
-  <div class="cta-row">
-    <Button href={ctaHref} variant="primary">{ctaLabel}</Button>
+  <div class="final-art"><StampArt /></div>
+  <div class="final-copy">
+    <h2>{title}</h2>
+    <p>{description}</p>
+    <div class="cta-row">
+      <Button href={ctaHref} variant="primary">{ctaLabel}</Button>
+    </div>
   </div>
 </div>
