@@ -7,10 +7,14 @@
   </url>
   <url>
     <loc>https://hunnydo.cloud/blog.html</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-11-12</lastmod>
   </url>
 
   <!-- Blog posts -->
+  <url>
+    <loc>https://hunnydo.cloud/blog/launching-our-progressive-web-app.html</loc>
+    <lastmod>2026-11-12</lastmod>
+  </url>
   <url>
     <loc>https://hunnydo.cloud/blog/addressing-recent-security-advisories.html</loc>
     <lastmod>2026-10-25</lastmod>
