@@ -16,6 +16,7 @@ import BuildArt from "../components/art/BuildArt.astro";
 import RemindArt from "../components/art/RemindArt.astro";
 import TrackArt from "../components/art/TrackArt.astro";
 import RouteArt from "../components/art/RouteArt.astro";
+import StepArt from "../components/art/StepArt.astro";
 import ChecklistArt from "../components/art/ChecklistArt.astro";
 
 const navLinks = [
@@ -147,8 +148,11 @@ const navLinks = [
             "Configure tasks and provide instructions",
             "Let HunnyDo handle the notifications",
             "Check back once HunnyDo lets you know everything is done!",
-          ].map((step) => (
+          ].map((step, i) => (
             <li class="step">
+              <div class="step-art">
+                <StepArt step={(i + 1) as 1 | 2 | 3 | 4} />
+              </div>
               <p>{step}</p>
             </li>
           ))

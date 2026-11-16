@@ -181,14 +181,28 @@
   text-align: center;
 }
 
+/* per-step honeycombs only show once the wide route below is hidden */
+.step-art {
+  display: none;
+}
+
 @media (max-width: 800px) {
   .steps {
     grid-template-columns: 1fr;
+    gap: var(--fw-sp-3);
   }
 
-  /* the 1200px-wide route is a decoration; at phone width the numbered list carries it on its own */
+  /* the 1200px-wide route can't shrink to phone width, so each numbered honeycomb
+     is shown on its own above its step instead (no path, no bee) */
   .route-art {
     display: none;
+  }
+
+  .step-art {
+    display: block;
+    width: 160px;
+    max-width: 60%;
+    margin: 0 auto;
   }
 }
 
